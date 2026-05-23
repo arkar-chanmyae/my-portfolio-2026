@@ -258,7 +258,7 @@ export default function AgenticPage() {
       {/* <IntroAnimation onDone={() => setHeroReady(true)} /> */}
 
       {/* ── STICKY NAV ────────────────────────────────────────────────────── */}
-      <MobileNav />
+      <MobileNav portfolio={portfolio} />
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section className="relative h-screen overflow-hidden">

@@ -18,7 +18,11 @@ const NAV_STYLE = {
   boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
 } as const;
 
-export function MobileNav() {
+export interface MobileNavProps {
+  portfolio?: any;
+}
+
+export function MobileNav({ portfolio }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   const close = () => setOpen(false);
@@ -74,14 +78,30 @@ export function MobileNav() {
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href="#contact"
-              onClick={(e) => handleLinkClick(e, "#contact")}
-              className="text-[11px] px-4 py-2 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
-              style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
-            >
-              HIRE ME
-            </a>
+            {portfolio?.hero?.resumeFile ? (
+              <a
+                href={portfolio.hero.resumeFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="text-[11px] px-4 py-2 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
+                style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+              >
+                DOWNLOAD CV
+              </a>
+            ) : (
+              <button
+                onClick={() =>
+                  alert(
+                    "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
+                  )
+                }
+                className="text-[11px] px-4 py-2 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
+                style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+              >
+                DOWNLOAD CV
+              </button>
+            )}
 
             {/* Burger — mobile only */}
             <button
@@ -136,14 +156,30 @@ export function MobileNav() {
               </a>
             ))}
             <div className="mt-1 px-2 pb-1">
-              <a
-                href="#contact"
-                onClick={(e) => handleLinkClick(e, "#contact")}
-                className="block text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium"
-                style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
-              >
-                HIRE ME
-              </a>
+              {portfolio?.hero?.resumeFile ? (
+                <a
+                  href={portfolio.hero.resumeFile}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="block text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium"
+                  style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+                >
+                  DOWNLOAD CV
+                </a>
+              ) : (
+                <button
+                  onClick={() =>
+                    alert(
+                      "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
+                    )
+                  }
+                  className="w-full text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium"
+                  style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+                >
+                  DOWNLOAD CV
+                </button>
+              )}
             </div>
           </div>
         </div>
