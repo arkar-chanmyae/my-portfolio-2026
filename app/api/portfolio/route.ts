@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+
+// Ensure Next does not attempt to statically collect page data
+export const dynamic = "force-dynamic";
 
 export async function GET() {
+  // Lazy-import the Prisma client so module initialization doesn't
+  // attempt to connect or run queries during build-time collection.
+  const prisma = (await import("@/lib/prisma")).default;
+
   try {
     const [
       hero,
