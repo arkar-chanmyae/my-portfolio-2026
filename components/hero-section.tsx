@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { RevealText } from "@/components/reveal-text";
 
 interface HeroSectionProps {
   portfolio: any;
@@ -13,6 +14,8 @@ export function HeroSection({
   heroReady,
   videoReady,
 }: HeroSectionProps) {
+  const isLoaded = !!portfolio?.hero;
+
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Video background — zooms in once intro is done */}
@@ -76,36 +79,56 @@ export function HeroSection({
       {/* Spacer so hero content doesn't sit under the fixed nav */}
       <div className="h-20" />
 
-      {/* Title + metrics — anchored to bottom left */}
+      {/* Title + CTA — anchored to bottom left */}
       <div className="absolute inset-x-0 bottom-0 z-30 flex flex-col px-6 md:px-12 pb-12 max-w-3xl">
-        {/* Title */}
-        <h1
-          className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111] leading-[1.0] tracking-tight mb-10"
-          style={{
-            fontFamily: '"IBM Plex Sans", sans-serif',
-            opacity: heroReady ? 1 : 0,
-            filter: heroReady ? "blur(0px)" : "blur(24px)",
-            transform: heroReady ? "translateY(0px)" : "translateY(32px)",
-            transition:
-              "opacity 1s cubic-bezier(0.16,1,0.3,1) 0ms, filter 1s cubic-bezier(0.16,1,0.3,1) 0ms, transform 1s cubic-bezier(0.16,1,0.3,1) 0ms",
-          }}
-        >
-          {portfolio?.hero ? (
+        {/* Title area */}
+        <div className="mb-10">
+          {isLoaded ? (
+            /* Loaded state: same RevealText word-by-word animation as other sections */
             <>
-              {portfolio.hero.fullName}
-              <br />
-              <span className="text-3xl sm:text-4xl text-black/60 block mt-4">
+              <RevealText
+                key="hero-name"
+                as="h1"
+                className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111] leading-[1.0] tracking-tight"
+                style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
+                stagger={60}
+                duration={800}
+                threshold={0}
+              >
+                {portfolio.hero.fullName}
+              </RevealText>
+              <RevealText
+                key="hero-tagline"
+                as="p"
+                className="text-3xl sm:text-4xl text-black/60 mt-4"
+                style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
+                stagger={60}
+                duration={800}
+                delay={200}
+                threshold={0}
+              >
                 {portfolio.hero.tagline}
-              </span>
+              </RevealText>
             </>
           ) : (
-            "Loading..."
+            /* Loading state: same word-reveal animation on "Loading..." text */
+            <RevealText
+              key="hero-loading"
+              as="h1"
+              className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111]/30 leading-[1.0] tracking-tight"
+              style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
+              stagger={60}
+              duration={800}
+              threshold={0}
+            >
+              {"Loading..."}
+            </RevealText>
           )}
-        </h1>
+        </div>
 
         {/* CTA Buttons */}
         <div
-          className="flex flex-wrap gap-4 mt-6"
+          className="flex flex-wrap gap-4"
           style={{
             opacity: heroReady ? 1 : 0,
             filter: heroReady ? "blur(0px)" : "blur(16px)",

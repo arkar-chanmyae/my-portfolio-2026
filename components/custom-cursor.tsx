@@ -149,20 +149,6 @@ export function CustomCursor() {
               strokeLinejoin="round"
             />
           </svg>
-
-          {/* --- Center dot — black --- */}
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: "5px",
-              height: "5px",
-              background: "#000",
-              top: `${faceH * 0.55}px`,
-              left: `${(containerW - 5) / 2}px`,
-              transform: "translateZ(0px)",
-              boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.4)",
-            }}
-          />
         </div>
       </div>
     </div>

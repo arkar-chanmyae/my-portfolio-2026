@@ -12,6 +12,7 @@ export function RevealText({
   duration = 700, // ms per word transition
   delay = 0, // initial delay before first word
   threshold = 0.2, // IntersectionObserver threshold
+  style = {},
 }: {
   children: string;
   className?: string;
@@ -20,6 +21,7 @@ export function RevealText({
   duration?: number;
   delay?: number;
   threshold?: number;
+  style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -66,7 +68,7 @@ export function RevealText({
     <Tag
       ref={ref}
       className={className}
-      style={{ display: "block", overflow: "hidden" }}
+      style={{ display: "block", overflow: "hidden", ...style }}
     >
       {words.map(({ word, index }) => {
         if (word === "\n") return <br key={`br-${index}`} />;

@@ -39,32 +39,24 @@ export default function AgenticPage() {
 
   return (
     <div className="bg-[#F5F4F0] text-[#111] min-h-screen font-sans antialiased">
-      {/* ── STICKY NAV ────────────────────────────────────────────────────── */}
       <MobileNav portfolio={portfolio} />
 
-      {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <HeroSection
         portfolio={portfolio}
         heroReady={heroReady}
         videoReady={videoReady}
       />
 
-      {/* ── BUILD YOUR AGENTS (4 cards) ───────────────────────────────────── */}
       <ProjectsSection portfolio={portfolio} />
 
-      {/* ── EDUCATION & EXPERIENCE (bento) ─────────────────────────────────── */}
       <EducationSection portfolio={portfolio} />
 
-      {/* ── PROFESSIONAL SKILLS ──────────────────────────────────────────── */}
-      <SkillsSection portfolio={portfolio} />
+      {/* <SkillsSection portfolio={portfolio} /> */}
 
-      {/* ── TECH STACK ────────────────────────────────────────────────────── */}
       <TechStackSection portfolio={portfolio} />
 
-      {/* ── CTA / CONTACT ─────────────────────────────────────────────────── */}
       <ContactSection portfolio={portfolio} />
 
-      {/* ── FOOTER ────────────────────────────────────────────────────────── */}
       <FooterSection portfolio={portfolio} />
     </div>
   );
