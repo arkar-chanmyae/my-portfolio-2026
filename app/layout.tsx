@@ -18,32 +18,29 @@ const _ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Yuuta | Software Engineer & Designer",
-  description:
-    "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
+  title: "Yuuta | Medical AI Engineer",
+  description: "Medical AI Enthusiast with Full Stack Web Development Skills.",
   keywords: [
     "Software Engineer",
     "Full-Stack Developer",
     "Web Development",
-    "React",
-    "Next.js",
-    "Portfolio",
+    "Medical AI Engineer",
     "Yuuta",
   ],
   authors: [{ name: "Yuuta" }],
   openGraph: {
-    title: "Yuuta | Software Engineer & Designer",
+    title: "Yuuta | Medical AI Engineer",
     description:
-      "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
+      "Medical AI Enthusiast with Full Stack Web Development Skills.",
     type: "website",
-    url: "https://yuuta.dev",
+    url: "https://arkarchanmyae.vercel.app",
     siteName: "Yuuta",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yuuta | Software Engineer & Designer",
+    title: "Yuuta | Medical AI Engineer",
     description:
-      "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
+      "Medical AI Enthusiast with Full Stack Web Development Skills.",
   },
   icons: {
     icon: [
