@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx prettier --check .",
+    "build": "npx prisma generate && next build && npx prettier --check .",
+    "postinstall": "npx prisma generate",
     "format": "npx prettier --write .",
     "start": "next start",
     "lint": "eslint .",
