@@ -692,7 +692,7 @@ export default function AgenticPage() {
       </section>
 
       {/* ── PRICING ───────────────────────────────────────────────────────── */}
-      <section
+      {/* <section
         id="pricing"
         className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]"
       >
@@ -788,11 +788,10 @@ export default function AgenticPage() {
                   ))}
                 </ul>
                 <button
-                  className={`w-full py-3 rounded-xl text-sm tracking-widest transition-all duration-200 ${
-                    plan.highlight
-                      ? "bg-[#111] text-white hover:bg-[#333]"
-                      : "border border-black/10 text-black/60 hover:border-black/25 hover:text-black hover:bg-black/[0.04]"
-                  }`}
+                  className={`w-full py-3 rounded-xl text-sm tracking-widest transition-all duration-200 ${plan.highlight
+                    ? "bg-[#111] text-white hover:bg-[#333]"
+                    : "border border-black/10 text-black/60 hover:border-black/25 hover:text-black hover:bg-black/[0.04]"
+                    }`}
                 >
                   {plan.name === "Enterprise" ? "CONTACT SALES" : "GET STARTED"}
                 </button>
@@ -800,7 +799,7 @@ export default function AgenticPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── CTA ───────────────────────────────────────────────────────────── */}
       <section
@@ -838,10 +837,10 @@ export default function AgenticPage() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.05] mb-6">
             Let's work together.
           </h2>
-          <p className="text-sm text-black/45 leading-relaxed mb-10">
+          {/* <p className="text-sm text-black/45 leading-relaxed mb-10">
             {portfolio?.contact?.tagline ||
               "Get in touch to discuss opportunities."}
-          </p>
+          </p> */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             {portfolio?.contact?.email && (
               <a
@@ -874,24 +873,6 @@ export default function AgenticPage() {
           <span className="font-pixel text-xs tracking-[0.25em] text-black/50 uppercase">
             {portfolio?.hero?.fullName || "PORTFOLIO"}
           </span>
-
-          {/* Nav sections */}
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-            {[
-              { label: "Projects", href: "#projects" },
-              { label: "Education", href: "#education" },
-              { label: "Skills", href: "#skills" },
-              { label: "Tech Stack", href: "#techstack" },
-            ].map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="text-xs text-black/35 hover:text-black/70 transition-colors tracking-widest uppercase"
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
 
           {/* Social links */}
           <div className="flex items-center gap-6">

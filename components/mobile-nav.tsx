@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Tech Stack", href: "#techstack" },
-  { label: "Pricing", href: "#pricing" },
+  // { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 
