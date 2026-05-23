@@ -18,30 +18,32 @@ const _ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Agentic — Autonomous AI Agents at Scale",
+  title: "Yuuta | Software Engineer & Designer",
   description:
-    "Deploy autonomous AI agents that think, act, and execute across any workflow. Connect 200+ integrations, run agents in parallel, and ship faster with the Agentic platform.",
+    "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
   keywords: [
-    "AI agents",
-    "autonomous agents",
-    "LLM orchestration",
-    "AI automation",
-    "multi-agent platform",
+    "Software Engineer",
+    "Full-Stack Developer",
+    "Web Development",
+    "React",
+    "Next.js",
+    "Portfolio",
+    "Yuuta",
   ],
-  authors: [{ name: "Agentic" }],
+  authors: [{ name: "Yuuta" }],
   openGraph: {
-    title: "Agentic — Autonomous AI Agents at Scale",
+    title: "Yuuta | Software Engineer & Designer",
     description:
-      "Deploy autonomous AI agents that think, act, and execute across any workflow.",
+      "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
     type: "website",
-    url: "https://agentic.ai",
-    siteName: "Agentic",
+    url: "https://yuuta.dev",
+    siteName: "Yuuta",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Agentic — Autonomous AI Agents at Scale",
+    title: "Yuuta | Software Engineer & Designer",
     description:
-      "Deploy autonomous AI agents that think, act, and execute across any workflow.",
+      "Welcome to my developer portfolio. Specializing in high-performance web development, mobile applications, and premium interactive designs.",
   },
   icons: {
     icon: [
