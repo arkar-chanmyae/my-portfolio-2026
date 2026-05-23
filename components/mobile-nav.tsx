@@ -1,45 +1,48 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Education",    href: "#education" },
-  { label: "Projects",     href: "#projects" },
-  { label: "Skills",       href: "#skills" },
-  { label: "Tech Stack",   href: "#techstack" },
-  { label: "Pricing",      href: "#pricing" },
-  { label: "Contact",      href: "#contact" },
-]
+  { label: "Projects", href: "#projects" },
+  { label: "Education", href: "#education" },
+  { label: "Skills", href: "#skills" },
+  { label: "Tech Stack", href: "#techstack" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Contact", href: "#contact" },
+];
 
 const NAV_STYLE = {
   backdropFilter: "blur(16px)",
   WebkitBackdropFilter: "blur(16px)",
   background: "rgba(245,244,240,0.30)",
   boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
-} as const
+} as const;
 
 export function MobileNav() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const close = () => setOpen(false)
+  const close = () => setOpen(false);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isTop?: boolean) => {
-    e.preventDefault()
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    isTop?: boolean,
+  ) => {
+    e.preventDefault();
     if (isTop) {
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      const target = document.querySelector(href)
+      const target = document.querySelector(href);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth" })
+        target.scrollIntoView({ behavior: "smooth" });
       }
     }
-    close()
-  }
+    close();
+  };
 
   return (
     <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
       <div className="pointer-events-auto w-full max-w-3xl">
-
         {/* Main bar */}
         <nav
           className="flex items-center justify-between px-5 py-3 rounded-2xl border border-black/[0.06]"
@@ -54,8 +57,11 @@ export function MobileNav() {
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-7" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {NAV_LINKS.map(l => (
+          <div
+            className="hidden md:flex items-center gap-7"
+            style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+          >
+            {NAV_LINKS.map((l) => (
               <a
                 key={l.label}
                 href={l.href}
@@ -79,7 +85,7 @@ export function MobileNav() {
 
             {/* Burger — mobile only */}
             <button
-              onClick={() => setOpen(v => !v)}
+              onClick={() => setOpen((v) => !v)}
               className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-lg hover:bg-black/[0.04] transition-colors"
               aria-label={open ? "Close menu" : "Open menu"}
             >
@@ -118,7 +124,7 @@ export function MobileNav() {
             className="rounded-2xl border border-black/[0.06] px-2 py-2 flex flex-col"
             style={NAV_STYLE}
           >
-            {NAV_LINKS.map(l => (
+            {NAV_LINKS.map((l) => (
               <a
                 key={l.label}
                 href={l.href}
@@ -141,8 +147,7 @@ export function MobileNav() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  )
+  );
 }

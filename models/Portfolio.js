@@ -5,7 +5,7 @@
 // model to keep all portfolio information in a single collection, which
 // is efficient for the read‑heavy pattern of a portfolio website.
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const PortfolioSchema = new mongoose.Schema(
   {
@@ -26,7 +26,7 @@ const PortfolioSchema = new mongoose.Schema(
         technologies: [{ type: String }],
         imageUrl: { type: String }, // optional thumbnail
         // You can add more fields (e.g., `date`, `featured`) later.
-      }
+      },
     ],
 
     // Professional experience
@@ -36,8 +36,8 @@ const PortfolioSchema = new mongoose.Schema(
         role: { type: String, required: true },
         startDate: { type: Date },
         endDate: { type: Date }, // leave null for current role
-        description: { type: String }
-      }
+        description: { type: String },
+      },
     ],
 
     // Social media and contact links
@@ -46,11 +46,11 @@ const PortfolioSchema = new mongoose.Schema(
       linkedin: { type: String },
       twitter: { type: String },
       // Add other platforms as needed.
-    }
+    },
   },
   {
-    timestamps: true // adds createdAt and updatedAt automatically
-  }
+    timestamps: true, // adds createdAt and updatedAt automatically
+  },
 );
 
-module.exports = mongoose.model('Portfolio', PortfolioSchema);
+module.exports = mongoose.model("Portfolio", PortfolioSchema);

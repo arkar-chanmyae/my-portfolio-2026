@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
@@ -12,17 +12,17 @@ export async function GET() {
       skills,
       contact,
       stats,
-      socialLinks
+      socialLinks,
     ] = await Promise.all([
       prisma.hero.findFirst(),
       prisma.aboutMe.findFirst(),
       prisma.techStack.findMany(),
-      prisma.project.findMany({ orderBy: { order: 'asc' } }),
-      prisma.education.findMany({ orderBy: { order: 'asc' } }),
-      prisma.professionalSkill.findMany({ orderBy: { order: 'asc' } }),
+      prisma.project.findMany({ orderBy: { order: "asc" } }),
+      prisma.education.findMany({ orderBy: { order: "asc" } }),
+      prisma.professionalSkill.findMany({ orderBy: { order: "asc" } }),
       prisma.contactInfo.findFirst(),
       prisma.portfolioStat.findFirst(),
-      prisma.socialMediaLink.findMany({ orderBy: { order: 'asc' } })
+      prisma.socialMediaLink.findMany({ orderBy: { order: "asc" } }),
     ]);
 
     return NextResponse.json({
@@ -34,10 +34,13 @@ export async function GET() {
       skills,
       contact,
       stats,
-      socialLinks
+      socialLinks,
     });
   } catch (error) {
-    console.error('Error fetching portfolio data:', error);
-    return NextResponse.json({ error: 'Failed to fetch portfolio data' }, { status: 500 });
+    console.error("Error fetching portfolio data:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch portfolio data" },
+      { status: 500 },
+    );
   }
 }

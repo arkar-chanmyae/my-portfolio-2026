@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useRef, useEffect } from "react"
-import { Canvas, useThree, useLoader, useFrame } from "@react-three/fiber"
-import * as THREE from "three"
+import { useRef, useEffect } from "react";
+import { Canvas, useThree, useLoader, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
 // Vertex shader — passes UV coordinates
 const vertexShader = `
@@ -11,7 +11,7 @@ const vertexShader = `
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-`
+`;
 
 // Fragment shader — wave glitch from top to bottom with layered textures
 const fragmentShader = `
@@ -81,129 +81,139 @@ const fragmentShader = `
       gl_FragColor = baseColor;
     }
   }
-`
+`;
 
 interface GlitchSceneProps {
-  isHovered: boolean
+  isHovered: boolean;
 }
 
 function GlitchScene({ isHovered }: GlitchSceneProps) {
-  const { gl, scene, camera, size } = useThree()
-  const meshRef = useRef<THREE.Mesh | null>(null)
-  const materialRef = useRef<THREE.ShaderMaterial | null>(null)
+  const { gl, scene, camera, size } = useThree();
+  const meshRef = useRef<THREE.Mesh | null>(null);
+  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
 
   // Wave animation state
   const waveState = useRef({
     active: false,
-    waveY: 1.0,       // starts at top (UV y = 1)
-    speed: 0.55,      // units per second across the 0-1 UV range
-    cooldown: 0.0,    // seconds until next wave
+    waveY: 1.0, // starts at top (UV y = 1)
+    speed: 0.55, // units per second across the 0-1 UV range
+    cooldown: 0.0, // seconds until next wave
     nextCooldown: 2.0 + Math.random() * 2.0,
-  })
+  });
 
-  const defaultTexture = useLoader(THREE.TextureLoader, "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bg-nature-RN8PX1dGhZlLMsI4flnWQM6uInZYY1.png")
-  const hoverTexture   = useLoader(THREE.TextureLoader, "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fr-nature-lWxWsWzCM2kVPeHafi3LHqb0fM4DPL.png")
+  const defaultTexture = useLoader(
+    THREE.TextureLoader,
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bg-nature-RN8PX1dGhZlLMsI4flnWQM6uInZYY1.png",
+  );
+  const hoverTexture = useLoader(
+    THREE.TextureLoader,
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/fr-nature-lWxWsWzCM2kVPeHafi3LHqb0fM4DPL.png",
+  );
 
-  const texture = isHovered ? hoverTexture : defaultTexture
+  const texture = isHovered ? hoverTexture : defaultTexture;
 
   // Build scene geometry once
   useEffect(() => {
-    const imageAspect  = defaultTexture.image.width / defaultTexture.image.height
-    const screenAspect = size.width / size.height
-    const frustumSize  = 1
+    const imageAspect =
+      defaultTexture.image.width / defaultTexture.image.height;
+    const screenAspect = size.width / size.height;
+    const frustumSize = 1;
 
-    ;(camera as THREE.OrthographicCamera).left   = -frustumSize * screenAspect
-    ;(camera as THREE.OrthographicCamera).right  =  frustumSize * screenAspect
-    ;(camera as THREE.OrthographicCamera).top    =  frustumSize
-    ;(camera as THREE.OrthographicCamera).bottom = -frustumSize
-    ;(camera as THREE.OrthographicCamera).near   = 0.1
-    ;(camera as THREE.OrthographicCamera).far    = 1000
-    ;(camera as THREE.OrthographicCamera).updateProjectionMatrix()
-    camera.position.z = 1
+    (camera as THREE.OrthographicCamera).left = -frustumSize * screenAspect;
+    (camera as THREE.OrthographicCamera).right = frustumSize * screenAspect;
+    (camera as THREE.OrthographicCamera).top = frustumSize;
+    (camera as THREE.OrthographicCamera).bottom = -frustumSize;
+    (camera as THREE.OrthographicCamera).near = 0.1;
+    (camera as THREE.OrthographicCamera).far = 1000;
+    (camera as THREE.OrthographicCamera).updateProjectionMatrix();
+    camera.position.z = 1;
 
-    const scale      = Math.max((2 * frustumSize * screenAspect) / (imageAspect * 2 * frustumSize), 1)
-    const planeWidth  = imageAspect * 2 * frustumSize * scale
-    const planeHeight = 2 * frustumSize * scale
+    const scale = Math.max(
+      (2 * frustumSize * screenAspect) / (imageAspect * 2 * frustumSize),
+      1,
+    );
+    const planeWidth = imageAspect * 2 * frustumSize * scale;
+    const planeHeight = 2 * frustumSize * scale;
 
-    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight)
+    const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        uBgTexture:  { value: defaultTexture },
-        uFrTexture:  { value: hoverTexture },
-        uTime:      { value: 0 },
-        uWaveY:     { value: 1.0 },
+        uBgTexture: { value: defaultTexture },
+        uFrTexture: { value: hoverTexture },
+        uTime: { value: 0 },
+        uWaveY: { value: 1.0 },
         uWaveWidth: { value: 0.07 },
         uIntensity: { value: 0.0 },
       },
       vertexShader,
       fragmentShader,
-    })
+    });
 
-    materialRef.current = material
-    const mesh = new THREE.Mesh(geometry, material)
-    meshRef.current = mesh
-    scene.add(mesh)
+    materialRef.current = material;
+    const mesh = new THREE.Mesh(geometry, material);
+    meshRef.current = mesh;
+    scene.add(mesh);
 
     return () => {
-      scene.remove(mesh)
-      geometry.dispose()
-      material.dispose()
-    }
+      scene.remove(mesh);
+      geometry.dispose();
+      material.dispose();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size.width, size.height])
+  }, [size.width, size.height]);
 
   // Keep textures in sync
   useEffect(() => {
     if (materialRef.current) {
-      materialRef.current.uniforms.uBgTexture.value = defaultTexture
-      materialRef.current.uniforms.uFrTexture.value = hoverTexture
+      materialRef.current.uniforms.uBgTexture.value = defaultTexture;
+      materialRef.current.uniforms.uFrTexture.value = hoverTexture;
     }
-  })
+  });
 
   // Disable glitch when hovered
   useEffect(() => {
     if (isHovered && materialRef.current) {
-      materialRef.current.uniforms.uIntensity.value = 0.0
-      waveState.current.active = false
+      materialRef.current.uniforms.uIntensity.value = 0.0;
+      waveState.current.active = false;
     }
-  }, [isHovered])
+  }, [isHovered]);
 
   useFrame((state, delta) => {
-    if (!materialRef.current || isHovered) return
-    const mat = materialRef.current
-    const ws  = waveState.current
+    if (!materialRef.current || isHovered) return;
+    const mat = materialRef.current;
+    const ws = waveState.current;
 
-    mat.uniforms.uTime.value = state.clock.elapsedTime
+    mat.uniforms.uTime.value = state.clock.elapsedTime;
 
     if (!ws.active) {
-      ws.cooldown -= delta
+      ws.cooldown -= delta;
       if (ws.cooldown <= 0) {
         // Trigger new wave from the top
-        ws.active = true
-        ws.waveY  = 1.0
-        ws.nextCooldown = 1.5 + Math.random() * 2.5
+        ws.active = true;
+        ws.waveY = 1.0;
+        ws.nextCooldown = 1.5 + Math.random() * 2.5;
       }
     } else {
       // Advance the wave downward
-      ws.waveY -= ws.speed * delta
+      ws.waveY -= ws.speed * delta;
 
-      mat.uniforms.uWaveY.value     = ws.waveY
-      mat.uniforms.uIntensity.value = 1.0
+      mat.uniforms.uWaveY.value = ws.waveY;
+      mat.uniforms.uIntensity.value = 1.0;
 
       if (ws.waveY < -0.15) {
         // Wave has exited the bottom — reset
-        ws.active  = false
-        ws.cooldown = ws.nextCooldown
-        mat.uniforms.uIntensity.value = 0.0
+        ws.active = false;
+        ws.cooldown = ws.nextCooldown;
+        mat.uniforms.uIntensity.value = 0.0;
       }
     }
-  })
+  });
 
-  return null
+  return null;
 }
 
 interface GlitchBackgroundProps {
-  isHovered: boolean
+  isHovered: boolean;
 }
 
 export function GlitchBackground({ isHovered }: GlitchBackgroundProps) {
@@ -220,8 +230,11 @@ export function GlitchBackground({ isHovered }: GlitchBackgroundProps) {
       {/* Gradient noir du bas vers le haut */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to top, black 0%, black 15%, transparent 60%)" }}
+        style={{
+          background:
+            "linear-gradient(to top, black 0%, black 15%, transparent 60%)",
+        }}
       />
     </div>
-  )
+  );
 }
