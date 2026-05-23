@@ -123,7 +123,7 @@ export function StackingAgentCards({ projects = [] }: { projects?: any[] }) {
                       {project.description}
                     </p>
                   </div>
-                  <div className="flex gap-8 pt-6 border-t border-black/[0.06]">
+                  <div className="flex gap-8 pt-6">
                     {project.liveUrl && (
                       <div>
                         <a

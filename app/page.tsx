@@ -417,7 +417,7 @@ export default function AgenticPage() {
 
           {/* Categories Tab Filter */}
           <div
-            className="flex flex-wrap gap-2 mb-10 pb-2 border-b border-black/[0.04]"
+            className="flex flex-wrap gap-2 mb-10 pb-2"
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
           >
             {["all", "frontend", "backend", "mobile", "ui/ux design"].map(

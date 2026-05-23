@@ -235,3 +235,26 @@ html {
     transform: translateX(0);
   }
 }
+
+/* Custom 3D Prism Cursor Styles */
+@keyframes rotatePrismY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor a,
+  body.has-custom-cursor button,
+  body.has-custom-cursor [role="button"],
+  body.has-custom-cursor input,
+  body.has-custom-cursor select,
+  body.has-custom-cursor textarea,
+  body.has-custom-cursor .cursor-pointer {
+    cursor: none !important;
+  }
+}
