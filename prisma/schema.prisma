@@ -44,7 +44,7 @@ model TechStack {
 
 model Project {
   id            String   @id @map("_id") @db.ObjectId @default(auto())
-  order         Int
+  order         Int?
   title         String
   description   String
   liveUrl       String?
