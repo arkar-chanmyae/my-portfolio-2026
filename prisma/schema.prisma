@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Hero {
+  id           String   @id @map("_id") @db.ObjectId @default(auto())
+  fullName     String
+  nickname     String
+  tagline      String
+  profileImage String
+  resumeFile   String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("hero")
+}
+
+model AboutMe {
+  id          String   @id @map("_id") @db.ObjectId @default(auto())
+  bio         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("about_me")
+}
+
+model TechStack {
+  id        String   @id @map("_id") @db.ObjectId @default(auto())
+  category  String
+  items     String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tech_stack")
+}
+
+model Project {
+  id            String   @id @map("_id") @db.ObjectId @default(auto())
+  order         Int
+  title         String
+  description   String
+  liveUrl       String?
+  repositoryUrl String?
+  image         String?
+  categories    String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Education {
+  id          String   @id @map("_id") @db.ObjectId @default(auto())
+  order       Int
+  institution String
+  degree      String
+  startDate   String
+  endDate     String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("education")
+}
+
+model ProfessionalSkill {
+  id          String   @id @map("_id") @db.ObjectId @default(auto())
+  order       Int
+  iconName    String
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("professional_skills")
+}
+
+model ContactInfo {
+  id       String   @id @map("_id") @db.ObjectId @default(auto())
+  email    String
+  phone    String
+  location String
+  tagline  String
+  logo     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_info")
+}
+
+model PortfolioStat {
+  id                  String   @id @map("_id") @db.ObjectId @default(auto())
+  totalEducation      Int
+  totalSkills         Int
+  totalContactMethods Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("portfolio_stats")
+}
+
+model SocialMediaLink {
+  id        String   @id @map("_id") @db.ObjectId @default(auto())
+  order     Int
+  platform  String
+  url       String
+  username  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("social_media_links")
+}
