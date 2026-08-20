@@ -1,0 +1,30 @@
+name: MongoDB Atlas keepalive
+
+on:
+  schedule:
+    # Runs weekly on Sunday at 00:00 UTC. Adjust cron if you prefer a different cadence.
+    - cron: '0 0 * * 0'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    name: Ping MongoDB Atlas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install mongodb driver
+        run: npm install mongodb@5 --no-audit --no-fund
+
+      - name: Ping MongoDB Atlas
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: |
+          node -e "const {MongoClient}=require('mongodb');(async()=>{const uri=process.env.MONGODB_URI; if(!uri){console.error('MONGODB_URI not set'); process.exit(1);} const client=new MongoClient(uri,{serverSelectionTimeoutMS:5000}); try{await client.connect(); const res=await client.db().admin().command({ping:1}); console.log('Ping OK',res); await client.db().listCollections().toArray().then(c=>console.log('Collections:', c.length)).catch(()=>{});}catch(e){console.error('Ping failed',e); process.exit(1);} finally{await client.close();}})().catch(e=>{console.error(e); process.exit(1);});"
