@@ -25,7 +25,7 @@ export function CustomCursor() {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      // 1. Explicit data-cursor-scale override (e.g. 1.5x on active work exp card)
+      // 1. Explicit data-cursor-scale override (e.g. 1.5x)
       const scaleEl = target.closest("[data-cursor-scale]") as HTMLElement;
       if (scaleEl) {
         const val = parseFloat(
@@ -36,24 +36,25 @@ export function CustomCursor() {
         return;
       }
 
-      // 2. Collapsed work exp items: strictly normal cursor (no hover enlargement)
-      if (target.closest(".exp-option-item:not(.active)")) {
-        setIsHovering(false);
-        setCursorScale(1.0);
-        return;
-      }
-
-      // 3. Standard interactive elements (buttons, links)
-      const hovering =
+      // 2. Global interactive elements (buttons, links, clickable items/cards)
+      const isInteractive =
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
         target.closest("a") ||
         target.closest("button") ||
         target.getAttribute("role") === "button" ||
-        target.classList.contains("cursor-pointer");
+        target.classList.contains("cursor-pointer") ||
+        target.closest(".exp-option-item") ||
+        target.closest(".exp-inactive-option") ||
+        target.closest("[data-interactive]");
 
-      setIsHovering(!!hovering);
-      setCursorScale(hovering ? 1.35 : 1.0);
+      if (isInteractive) {
+        setIsHovering(true);
+        setCursorScale(1.35);
+      } else {
+        setIsHovering(false);
+        setCursorScale(1.0);
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove);

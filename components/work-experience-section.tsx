@@ -175,14 +175,24 @@ export function WorkExperienceSection({
   const [activeOption, setActiveOption] = useState<number>(0);
   const [modalItem, setModalItem] = useState<WorkExperienceItem | null>(null);
 
-  // Close modal on Escape key
+  // Lock scroll when modal is opened and close on Escape key
   useEffect(() => {
+    if (modalItem) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setModalItem(null);
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalItem]);
 
   // Use dynamic MongoDB data if available, otherwise use exact seeded placeholders
   const experienceList: WorkExperienceItem[] =
@@ -192,7 +202,7 @@ export function WorkExperienceSection({
 
   const handleCardClick = (item: WorkExperienceItem, index: number) => {
     if (activeOption === index) {
-      // Clicking already active card opens the modal in full detail
+      // Clicking already active card opens modal in full detail
       setModalItem(item);
     } else {
       // Clicking inactive card activates it
@@ -200,6 +210,7 @@ export function WorkExperienceSection({
     }
   };
 
+  // Support custom background image/URL from MongoDB or fallback to curated gradient
   const getBackgroundStyle = (item: WorkExperienceItem, index: number) => {
     const bgUrl = item.background || item.image || item.imageUrl;
     if (bgUrl) {
@@ -287,7 +298,6 @@ export function WorkExperienceSection({
       display: flex;
       flex-direction: row;
       align-items: stretch;
-      overflow: hidden;
       width: 100%;
       height: 440px;
       gap: 12px;
@@ -304,14 +314,14 @@ export function WorkExperienceSection({
       background-position: center;
       transition: flex 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                   max-width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                   border-radius 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                   box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
       user-select: none;
-      transform: none !important;
-      will-change: flex, max-width;
+      will-change: flex, max-width, transform;
     }
     
     /* Active card */
@@ -321,6 +331,13 @@ export function WorkExperienceSection({
       border-radius: 32px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Active card hover scale */
+    .exp-option-item.active:hover {
+      transform: scale(1.025) !important;
+      z-index: 20;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     }
     
     .exp-option-shadow {
@@ -369,7 +386,7 @@ export function WorkExperienceSection({
       transition: opacity 0.45s ease 0.15s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
     }
     
-    /* Collapsed state: perfectly centered icon badge */
+    /* Collapsed state: centered icon badge */
     .exp-option-item:not(.active) .exp-option-label {
       position: absolute;
       bottom: 20px;
@@ -499,7 +516,6 @@ export function WorkExperienceSection({
         overflow: hidden;
         border: 2px solid rgba(0, 0, 0, 0.08);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        transform: none !important;
       }
       
       .exp-inactive-option::before {
@@ -552,7 +568,7 @@ export function WorkExperienceSection({
             <Tag>WORK EXPERIENCE</Tag>
           </div>
           <RevealText className="text-4xl md:text-5xl font-light tracking-tight leading-[1.05]">
-            {"Where I have worked."}
+            {"What I have worked on."}
           </RevealText>
         </div>
 
@@ -660,7 +676,7 @@ export function WorkExperienceSection({
         </div>
       </div>
 
-      {/* Full Detail Modal with Blurred Background */}
+      {/* Full Detail Modal with Blurred Background & Body Scroll Lock */}
       {modalItem && (
         <div
           className="fixed inset-0 z-[99990] bg-black/70 backdrop-blur-md flex items-center justify-center p-4 md:p-6 overflow-y-auto"
