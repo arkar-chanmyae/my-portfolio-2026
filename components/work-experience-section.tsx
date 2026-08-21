@@ -204,8 +204,12 @@ export function WorkExperienceSection({
     if (activeOption === index) {
       // Clicking already active card opens modal in full detail
       setModalItem(item);
-    } else {
-      // Clicking inactive card activates it
+    }
+    // Collapsed cards are activated by hover, not click
+  };
+
+  const handleCardHover = (index: number) => {
+    if (activeOption !== index) {
       setActiveOption(index);
     }
   };
@@ -441,7 +445,7 @@ export function WorkExperienceSection({
       margin: 0;
     }
     
-    /* Text info */
+    /* Text info — delayed so it appears after the card finishes expanding */
     .exp-option-item.active .exp-option-info {
       display: flex;
       flex-direction: column;
@@ -452,7 +456,7 @@ export function WorkExperienceSection({
       opacity: 1;
       transform: translateX(0);
       pointer-events: auto;
-      transition: opacity 0.45s ease 0.12s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+      transition: opacity 0.4s ease 0.35s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
       overflow: hidden;
       white-space: normal;
     }
@@ -592,6 +596,7 @@ export function WorkExperienceSection({
                   style={getBackgroundStyle(item, index)}
                   data-cursor-scale={isActive ? "1.5" : undefined}
                   onClick={() => handleCardClick(item, index)}
+                  onMouseEnter={() => handleCardHover(index)}
                 >
                   <div className="exp-option-shadow" />
 
@@ -684,106 +689,125 @@ export function WorkExperienceSection({
           style={{ animation: "fadeIn 0.25s ease" }}
         >
           <div
-            className="relative w-full max-w-2xl bg-[#141416] border border-white/15 rounded-3xl p-6 md:p-8 text-white shadow-2xl overflow-hidden my-auto"
+            className="relative w-full max-w-2xl bg-[#141416] border border-white/15 rounded-3xl text-white shadow-2xl overflow-hidden my-auto"
             onClick={(e) => e.stopPropagation()}
             style={{
               background: "linear-gradient(145deg, #18181b 0%, #09090b 100%)",
             }}
           >
-            {/* Header with Company & Close Button */}
-            <div className="flex items-start justify-between gap-4 pb-6 border-b border-white/10">
-              <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-xl flex-shrink-0 backdrop-blur-md">
-                  {renderCardIcon(
-                    modalItem,
-                    experienceList.findIndex(
-                      (e) => e.company === modalItem.company,
-                    ),
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-2xl font-light tracking-tight text-white">
-                    {modalItem.role}
-                  </h3>
-                  <div className="text-sm text-white/70 font-mono mt-0.5">
-                    {modalItem.company}
-                    {modalItem.location ? ` • ${modalItem.location}` : ""}
+            {/* Background image hero banner */}
+            <div
+              className="w-full h-40 md:h-48 relative"
+              style={{
+                ...getBackgroundStyle(
+                  modalItem,
+                  experienceList.findIndex(
+                    (e) => e.company === modalItem.company,
+                  ),
+                ),
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/60 to-transparent" />
+            </div>
+
+            <div className="px-6 md:px-8 pb-6 md:pb-8 -mt-12 relative z-10">
+              {/* Header with Company & Close Button */}
+              <div className="flex items-start justify-between gap-4 pb-6 border-b border-white/10">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-xl flex-shrink-0 backdrop-blur-md">
+                    {renderCardIcon(
+                      modalItem,
+                      experienceList.findIndex(
+                        (e) => e.company === modalItem.company,
+                      ),
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-light tracking-tight text-white">
+                      {modalItem.role}
+                    </h3>
+                    <div className="text-sm text-white/70 font-mono mt-0.5">
+                      {modalItem.company}
+                      {modalItem.location ? ` • ${modalItem.location}` : ""}
+                    </div>
                   </div>
                 </div>
+
+                {/* Close button */}
+                <button
+                  onClick={() => setModalItem(null)}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all text-sm flex-shrink-0"
+                  aria-label="Close modal"
+                >
+                  ✕
+                </button>
               </div>
 
-              {/* Close button */}
-              <button
-                onClick={() => setModalItem(null)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-all text-sm flex-shrink-0"
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Date Badge */}
-            <div className="py-4 flex items-center gap-2 text-xs font-mono text-white/60">
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
-                {formatDate(modalItem.startDate)} –{" "}
-                {modalItem.current
-                  ? "Present"
-                  : modalItem.endDate
-                    ? formatDate(modalItem.endDate)
-                    : "Present"}
-              </span>
-              {modalItem.current && (
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px]">
-                  Current Role
+              {/* Date Badge */}
+              <div className="py-4 flex items-center gap-2 text-xs font-mono text-white/60">
+                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  {formatDate(modalItem.startDate)} –{" "}
+                  {modalItem.current
+                    ? "Present"
+                    : modalItem.endDate
+                      ? formatDate(modalItem.endDate)
+                      : "Present"}
                 </span>
+                {modalItem.current && (
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px]">
+                    Current Role
+                  </span>
+                )}
+              </div>
+
+              {/* Full Description */}
+              {modalItem.description && (
+                <div className="py-2">
+                  <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-2">
+                    Overview
+                  </h4>
+                  <p className="text-sm md:text-base text-white/85 leading-relaxed">
+                    {modalItem.description}
+                  </p>
+                </div>
+              )}
+
+              {/* Full Responsibilities */}
+              {modalItem.responsibilities &&
+                modalItem.responsibilities.length > 0 && (
+                  <div className="py-4">
+                    <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-3">
+                      Key Responsibilities & Highlights
+                    </h4>
+                    <ul className="space-y-2.5 text-xs md:text-sm text-white/80 leading-relaxed list-disc list-outside pl-4">
+                      {modalItem.responsibilities.map((resp, rIdx) => (
+                        <li key={rIdx}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+              {/* Tags / Skills */}
+              {modalItem.tags && modalItem.tags.length > 0 && (
+                <div className="pt-4 border-t border-white/10">
+                  <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-3">
+                    Technologies & Skills
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {modalItem.tags.map((tag, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-white/90 border border-white/10"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
-
-            {/* Full Description */}
-            {modalItem.description && (
-              <div className="py-2">
-                <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-2">
-                  Overview
-                </h4>
-                <p className="text-sm md:text-base text-white/85 leading-relaxed">
-                  {modalItem.description}
-                </p>
-              </div>
-            )}
-
-            {/* Full Responsibilities */}
-            {modalItem.responsibilities &&
-              modalItem.responsibilities.length > 0 && (
-                <div className="py-4">
-                  <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-3">
-                    Key Responsibilities & Highlights
-                  </h4>
-                  <ul className="space-y-2.5 text-xs md:text-sm text-white/80 leading-relaxed list-disc list-outside pl-4">
-                    {modalItem.responsibilities.map((resp, rIdx) => (
-                      <li key={rIdx}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-            {/* Tags / Skills */}
-            {modalItem.tags && modalItem.tags.length > 0 && (
-              <div className="pt-4 border-t border-white/10">
-                <h4 className="text-xs uppercase tracking-widest text-white/40 font-mono mb-3">
-                  Technologies & Skills
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {modalItem.tags.map((tag, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-white/90 border border-white/10"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
