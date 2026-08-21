@@ -24,7 +24,7 @@ export function TechStackSection({ portfolio }: TechStackSectionProps) {
       className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]"
     >
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-16">
+        <div className="flex flex-col gap-8 mb-16">
           <div>
             <div className="flex items-center gap-3 mb-3">
               <PixelIcon type="integrations" size={32} />
@@ -34,10 +34,6 @@ export function TechStackSection({ portfolio }: TechStackSectionProps) {
               {"Tools I use to\nbuild and ship."}
             </RevealText>
           </div>
-          <p className="text-sm text-black/45 leading-relaxed max-w-xs md:self-end">
-            A comprehensive list of technologies, frameworks, and tools I have
-            experience working with.
-          </p>
         </div>
 
         <div
