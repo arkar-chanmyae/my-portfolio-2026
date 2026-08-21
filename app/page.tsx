@@ -48,9 +48,9 @@ export default function AgenticPage() {
         videoReady={videoReady}
       />
 
-      <ProjectsSection portfolio={portfolio} />
-
       <WorkExperienceSection portfolio={portfolio} />
+
+      <ProjectsSection portfolio={portfolio} />
 
       {/* <SkillsSection portfolio={portfolio} /> */}
 
