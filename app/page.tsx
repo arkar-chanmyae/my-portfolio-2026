@@ -56,9 +56,9 @@ export default function AgenticPage() {
 
       <TechStackSection portfolio={portfolio} />
 
-      <ContactSection portfolio={portfolio} />
-
       <EducationSection portfolio={portfolio} />
+
+      <ContactSection portfolio={portfolio} />
 
       <FooterSection portfolio={portfolio} />
     </div>
