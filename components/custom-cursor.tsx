@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isVisible, setIsVisible] = useState(false);
+  const [cursorScale, setCursorScale] = useState(1.0);
   const [isHovering, setIsHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -22,6 +23,27 @@ export function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+      if (!target) return;
+
+      // 1. Explicit data-cursor-scale override (e.g. 1.5x on active work exp card)
+      const scaleEl = target.closest("[data-cursor-scale]") as HTMLElement;
+      if (scaleEl) {
+        const val = parseFloat(
+          scaleEl.getAttribute("data-cursor-scale") || "1.5",
+        );
+        setCursorScale(val);
+        setIsHovering(true);
+        return;
+      }
+
+      // 2. Collapsed work exp items: strictly normal cursor (no hover enlargement)
+      if (target.closest(".exp-option-item:not(.active)")) {
+        setIsHovering(false);
+        setCursorScale(1.0);
+        return;
+      }
+
+      // 3. Standard interactive elements (buttons, links)
       const hovering =
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
@@ -29,7 +51,9 @@ export function CustomCursor() {
         target.closest("button") ||
         target.getAttribute("role") === "button" ||
         target.classList.contains("cursor-pointer");
+
       setIsHovering(!!hovering);
+      setCursorScale(hovering ? 1.35 : 1.0);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -65,7 +89,7 @@ export function CustomCursor() {
 
   return (
     <div
-      className="fixed pointer-events-none z-[9999] select-none hidden md:block"
+      className="fixed pointer-events-none z-[99999] select-none hidden md:block"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -85,9 +109,7 @@ export function CustomCursor() {
           height: `${containerH}px`,
           perspective: "500px",
           transformOrigin: "top center",
-          transform: isHovering
-            ? "scale(1.35) rotateZ(-22.5deg) rotateX(20deg)"
-            : "scale(1.0) rotateZ(-22.5deg) rotateX(20deg)",
+          transform: `scale(${cursorScale}) rotateZ(-22.5deg) rotateX(20deg)`,
         }}
       >
         {/* Rotating prism core */}
