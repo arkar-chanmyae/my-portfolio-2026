@@ -2,94 +2,68 @@
 
 import React from "react";
 import { RevealText } from "@/components/reveal-text";
+import { AnimatedSphere } from "@/components/animated-sphere";
 
 interface HeroSectionProps {
   portfolio: any;
   heroReady: boolean;
-  videoReady: boolean;
+  videoReady?: boolean;
 }
 
-export function HeroSection({
-  portfolio,
-  heroReady,
-  videoReady,
-}: HeroSectionProps) {
+export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
   const isLoaded = !!portfolio?.hero;
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* Video background — zooms in once intro is done */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/agentic-hero-9yW3wnTNMfn2U6lsVhTTZSJFEvAoSj.mp4"
-        style={{
-          transform: videoReady ? "scale(1.05)" : "scale(0.85)",
-          transition: "transform 2s cubic-bezier(0.16, 1, 0.3, 1)",
-        }}
-      />
+    <section className="relative h-screen min-h-[640px] overflow-hidden bg-[#F5F4F0] flex flex-col justify-between">
+      {/* Subtle grid lines matching the exact author ratio */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40 z-0">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={`h-${i}`}
+            className="absolute h-px bg-black/[0.08]"
+            style={{
+              top: `${12.5 * (i + 1)}%`,
+              left: 0,
+              right: 0,
+            }}
+          />
+        ))}
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={`v-${i}`}
+            className="absolute w-px bg-black/[0.08]"
+            style={{
+              left: `${8.33 * (i + 1)}%`,
+              top: 0,
+              bottom: 0,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* Progressive blur + light gradient rising from bottom */}
+      {/* Animated sphere background — responsively centered on mobile and right-aligned on desktop */}
       <div
-        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-[-10%] md:right-[-5%] lg:right-0 top-1/2 -translate-y-1/2 w-[520px] h-[520px] sm:w-[600px] sm:h-[600px] lg:w-[800px] lg:h-[800px] aspect-square pointer-events-none z-10 flex items-center justify-center transition-opacity duration-1000 select-none opacity-50 sm:opacity-60 md:opacity-80"
         style={{
-          height: "65%",
-          background:
-            "linear-gradient(to top, #F5F4F0 0%, #F5F4F0 18%, rgba(245,244,240,0.85) 35%, rgba(245,244,240,0.5) 55%, rgba(245,244,240,0.15) 75%, transparent 100%)",
+          opacity: heroReady ? undefined : 0,
         }}
-      />
-      {/* Backdrop blur layers — progressively lighter toward top */}
-      <div
-        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
-        style={{
-          height: "20%",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to top, black 0%, transparent 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
-        style={{
-          height: "38%",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to top, black 0%, transparent 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 z-10 pointer-events-none"
-        style={{
-          height: "55%",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-          maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to top, black 0%, transparent 100%)",
-        }}
-      />
+      >
+        <AnimatedSphere />
+      </div>
 
-      {/* Spacer so hero content doesn't sit under the fixed nav */}
-      <div className="h-20" />
+      {/* Spacer for fixed top navbar */}
+      <div className="h-20 sm:h-24" />
 
-      {/* Title + CTA — anchored to bottom left */}
-      <div className="absolute inset-x-0 bottom-0 z-30 flex flex-col px-6 md:px-12 pb-12 max-w-3xl">
-        {/* Title area */}
+      {/* Main hero content — anchored to bottom left */}
+      <div className="relative z-20 flex flex-col px-6 md:px-12 lg:px-20 pb-16 md:pb-20 max-w-4xl">
+        {/* Title & Tagline area */}
         <div className="mb-10">
           {isLoaded ? (
-            /* Loaded state: same RevealText word-by-word animation as other sections */
             <>
               <RevealText
                 key="hero-name"
                 as="h1"
-                className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111] leading-[1.0] tracking-tight"
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-[#111] leading-[0.95] tracking-tight"
                 style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
                 stagger={60}
                 duration={800}
@@ -100,7 +74,7 @@ export function HeroSection({
               <RevealText
                 key="hero-tagline"
                 as="p"
-                className="text-3xl sm:text-4xl text-black/60 mt-4"
+                className="text-2xl sm:text-3xl md:text-4xl text-black/60 mt-4 font-light max-w-2xl leading-snug"
                 style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
                 stagger={60}
                 duration={800}
@@ -111,11 +85,10 @@ export function HeroSection({
               </RevealText>
             </>
           ) : (
-            /* Loading state: same word-reveal animation on "Loading..." text */
             <RevealText
               key="hero-loading"
               as="h1"
-              className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111]/30 leading-[1.0] tracking-tight"
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-[#111]/30 leading-[0.95] tracking-tight"
               style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
               stagger={60}
               duration={800}
@@ -128,7 +101,7 @@ export function HeroSection({
 
         {/* CTA Buttons */}
         <div
-          className="flex flex-wrap gap-4"
+          className="flex flex-wrap gap-4 items-center"
           style={{
             opacity: heroReady ? 1 : 0,
             filter: heroReady ? "blur(0px)" : "blur(16px)",
@@ -144,7 +117,7 @@ export function HeroSection({
               const target = document.querySelector("#contact");
               if (target) target.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-3.5 bg-[#111] text-white text-xs rounded-xl hover:bg-[#333] transition-colors tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px]"
+            className="px-8 py-3.5 bg-[#111] text-white text-xs rounded-xl hover:bg-[#333] transition-colors tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] shadow-sm"
           >
             HIRE ME!
           </a>
@@ -154,8 +127,7 @@ export function HeroSection({
               target="_blank"
               rel="noopener noreferrer"
               download
-              className="px-8 py-3.5 bg-white/60 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px]"
-              style={{ backdropFilter: "blur(8px)" }}
+              className="px-8 py-3.5 bg-white/70 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
             >
               DOWNLOAD CV
             </a>
@@ -166,8 +138,7 @@ export function HeroSection({
                   "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
                 )
               }
-              className="px-8 py-3.5 bg-white/60 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px]"
-              style={{ backdropFilter: "blur(8px)" }}
+              className="px-8 py-3.5 bg-white/70 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
             >
               DOWNLOAD CV
             </button>

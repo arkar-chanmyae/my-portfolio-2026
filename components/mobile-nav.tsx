@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Projects", href: "#projects" },
   { label: "Work Experience", href: "#work-experience" },
-  { label: "Education", href: "#education" },
+  { label: "Projects", href: "#projects" },
   // { label: "Skills", href: "#skills" },
   { label: "Tech Stack", href: "#techstack" },
   // { label: "Pricing", href: "#pricing" },
+  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
