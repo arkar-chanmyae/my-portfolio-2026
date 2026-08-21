@@ -49,13 +49,13 @@ export default function AgenticPage() {
 
       <ProjectsSection portfolio={portfolio} />
 
-      <EducationSection portfolio={portfolio} />
-
       {/* <SkillsSection portfolio={portfolio} /> */}
 
       <TechStackSection portfolio={portfolio} />
 
       <ContactSection portfolio={portfolio} />
+
+      <EducationSection portfolio={portfolio} />
 
       <FooterSection portfolio={portfolio} />
     </div>
