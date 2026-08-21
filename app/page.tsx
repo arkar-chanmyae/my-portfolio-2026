@@ -5,6 +5,7 @@ import { HERO_REVEAL_MS } from "@/components/intro-animation";
 import { MobileNav } from "@/components/mobile-nav";
 import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
+import { WorkExperienceSection } from "@/components/work-experience-section";
 import { EducationSection } from "@/components/education-section";
 import { SkillsSection } from "@/components/skills-section";
 import { TechStackSection } from "@/components/tech-stack-section";
@@ -47,15 +48,17 @@ export default function AgenticPage() {
         videoReady={videoReady}
       />
 
-      <ProjectsSection portfolio={portfolio} />
+      <WorkExperienceSection portfolio={portfolio} />
 
-      <EducationSection portfolio={portfolio} />
+      <ProjectsSection portfolio={portfolio} />
 
       {/* <SkillsSection portfolio={portfolio} /> */}
 
       <TechStackSection portfolio={portfolio} />
 
       <ContactSection portfolio={portfolio} />
+
+      <EducationSection portfolio={portfolio} />
 
       <FooterSection portfolio={portfolio} />
     </div>
