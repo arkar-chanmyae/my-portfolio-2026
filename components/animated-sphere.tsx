@@ -13,7 +13,8 @@ export function AnimatedSphere() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const chars = "░▒▓█▀▄▌▐│─┤├┴┬╭╮╰╯";
+    // const chars = "░▒▓█▀▄▌▐│─┤├┴┬╭╮╰╯";
+    const chars = "➕";
     let time = 0;
 
     const resize = () => {

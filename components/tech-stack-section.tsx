@@ -21,7 +21,7 @@ export function TechStackSection({ portfolio }: TechStackSectionProps) {
   return (
     <section
       id="techstack"
-      className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]"
+      className="py-32 px-6 md:px-12 lg:px-20 border-t border-ink/[0.06]"
     >
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col gap-8 mb-16">
@@ -52,7 +52,7 @@ export function TechStackSection({ portfolio }: TechStackSectionProps) {
                   {(stack.items || []).map((item: string, i: number) => (
                     <span
                       key={i}
-                      className="inline-flex items-center px-3 py-1.5 rounded-lg border border-black/10 bg-white text-sm text-black/70 shadow-sm"
+                      className="inline-flex items-center px-3 py-1.5 rounded-lg border border-ink/10 bg-paper text-base md:text-md font-medium text-ink shadow-sm dark:text-white"
                     >
                       {item}
                     </span>

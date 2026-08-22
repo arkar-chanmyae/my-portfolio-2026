@@ -9,7 +9,7 @@ const OFFSET_STEP = 8; // px pushed down per card stacked on top
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] tracking-widest font-sans text-black/40 bg-black/[0.04]">
+    <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] tracking-widest font-sans text-ink/40 bg-ink/[0.04]">
       {children}
     </span>
   );
@@ -70,7 +70,7 @@ export function StackingAgentCards({ projects = [] }: { projects?: any[] }) {
                 willChange: "transform",
               }}
             >
-              <div className="group relative bg-[#faf9f7] rounded-2xl border border-black/[0.07] overflow-hidden cursor-pointer">
+              <div className="group relative bg-paper rounded-2xl border border-ink/[0.07] overflow-hidden cursor-pointer">
                 {/* ── MOBILE: image top, fades out at bottom ── */}
                 {project.image && (
                   <div className="relative w-full h-52 pointer-events-none md:hidden">
@@ -97,10 +97,10 @@ export function StackingAgentCards({ projects = [] }: { projects?: any[] }) {
                       className="w-full h-full object-cover object-center"
                     />
                     <div
-                      className="absolute inset-0"
+                      className="absolute inset-0 bg-paper"
                       style={{
                         background:
-                          "linear-gradient(to right, #faf9f7 0%, transparent 55%)",
+                          "linear-gradient(to right, var(--paper) 0%, transparent 55%)",
                       }}
                     />
                   </div>
@@ -112,14 +112,14 @@ export function StackingAgentCards({ projects = [] }: { projects?: any[] }) {
                   style={{ maxWidth: project.image ? undefined : "100%" }}
                   // On desktop limit to left 60% so text doesn't overlap image
                 >
-                  <div className="md:max-w-[60%]">
+                  <div className="md:max-w-[calc(50%-2rem)] md:pr-8">
                     <div className="flex items-start justify-start mb-6 gap-2 flex-wrap">
                       {(project.categories || []).map((cat: string) => (
                         <Tag key={cat}>{cat}</Tag>
                       ))}
                     </div>
-                    <h3 className="text-xl font-light mb-3">{project.title}</h3>
-                    <p className="text-sm text-black/45 leading-relaxed mb-8">
+                    <h3 className="text-xl font-bold mb-3">{project.title}</h3>
+                    <p className="text-base text-ink/45 leading-relaxed mb-8">
                       {project.description}
                     </p>
                   </div>

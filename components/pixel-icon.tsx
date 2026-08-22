@@ -21,7 +21,7 @@ function drawPlatform(ctx: CanvasRenderingContext2D, W: number, t: number) {
 
   // Central node — pulsing
   const pulse = 0.6 + 0.4 * Math.sin(t * 0.003);
-  ctx.fillStyle = `rgba(0,0,0,${pulse})`;
+  ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${pulse})`;
   const cs = ps * 1.4;
   ctx.fillRect(cx - cs / 2, cy - cs / 2, cs, cs);
 
@@ -32,7 +32,7 @@ function drawPlatform(ctx: CanvasRenderingContext2D, W: number, t: number) {
     const nx = cx + Math.cos(angle) * r;
     const ny = cy + Math.sin(angle) * r;
     const opacity = 0.3 + 0.5 * ((Math.sin(angle * 2 + t * 0.002) + 1) / 2);
-    ctx.fillStyle = `rgba(0,0,0,${opacity})`;
+    ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${opacity})`;
     ctx.fillRect(
       Math.round(nx / ps) * ps - ps / 2,
       Math.round(ny / ps) * ps - ps / 2,
@@ -46,7 +46,7 @@ function drawPlatform(ctx: CanvasRenderingContext2D, W: number, t: number) {
       const lx = cx + (nx - cx) * (s / steps);
       const ly = cy + (ny - cy) * (s / steps);
       const lo = (0.06 + 0.1 * (s / steps)) * pulse;
-      ctx.fillStyle = `rgba(0,0,0,${lo})`;
+      ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${lo})`;
       ctx.fillRect(
         Math.round(lx / ps) * ps,
         Math.round(ly / ps) * ps,
@@ -123,7 +123,7 @@ function drawAgents(ctx: CanvasRenderingContext2D, W: number, t: number) {
     row.forEach((cell, c) => {
       if (!cell) return;
       const opacity = 0.5 + 0.5 * Math.sin(t * 0.001 + r * 0.3);
-      ctx.fillStyle = `rgba(0,0,0,${opacity})`;
+      ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${opacity})`;
       ctx.fillRect(offX + c * ps, offY + r * ps + bobY, ps - 1, ps - 1);
     });
   });
@@ -181,7 +181,7 @@ function drawWorkflow(ctx: CanvasRenderingContext2D, W: number, t: number) {
       // Outline always visible at low opacity
       const baseAlpha = 0.12;
       const alpha = Math.max(baseAlpha, sandAlpha * 0.85);
-      ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+      ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${alpha})`;
       ctx.fillRect(offX + c * ps, offY + r * ps, ps - 1, ps - 1);
     });
   });
@@ -206,7 +206,7 @@ function drawIntegrations(ctx: CanvasRenderingContext2D, W: number, t: number) {
       const alpha = 0.1 + 0.65 * ((Math.sin(wave + phase) + 1) / 2);
       const x = offX + c * (ps + gap);
       const y = offY + r * (ps + gap);
-      ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+      ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${alpha})`;
       ctx.fillRect(x, y, ps, ps);
     }
   }
@@ -236,7 +236,7 @@ function drawPricing(ctx: CanvasRenderingContext2D, W: number, t: number) {
     for (let row = 0; row < rowCount; row++) {
       const progress = 1 - row / rowCount;
       const alpha = 0.15 + progress * 0.7;
-      ctx.fillStyle = `rgba(0,0,0,${alpha})`;
+      ctx.fillStyle = `rgba(${(ctx as any).__ink ?? "0,0,0"},${alpha})`;
       ctx.fillRect(x, y + row * ps, bw, ps - 1);
     }
   });
@@ -252,6 +252,8 @@ export function PixelIcon({ type, size = 40 }: PixelIconProps) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
 
+    const isDark = () => document.documentElement.classList.contains("dark");
+
     const draw = (t: number) => {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = size * dpr;
@@ -261,6 +263,10 @@ export function PixelIcon({ type, size = 40 }: PixelIconProps) {
 
       // Disable anti-aliasing for crisp pixels
       ctx.imageSmoothingEnabled = false;
+
+      // Theme-aware ink color: near-black in light mode, near-white in dark
+      const rgb = isDark() ? "255,255,255" : "0,0,0";
+      (ctx as any).__ink = rgb;
 
       switch (type) {
         case "platform":

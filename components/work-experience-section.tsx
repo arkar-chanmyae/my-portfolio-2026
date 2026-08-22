@@ -444,6 +444,13 @@ export function WorkExperienceSection({
       flex-shrink: 0;
       margin: 0;
     }
+
+    /* Dark theme: flip badge + icon colors */
+    :global(.dark) .exp-option-icon,
+    .dark .exp-option-icon {
+      background-color: rgba(30, 30, 34, 0.95);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
     
     /* Text info — delayed so it appears after the card finishes expanding */
     .exp-option-item.active .exp-option-info {
@@ -648,8 +655,10 @@ export function WorkExperienceSection({
                       )}
 
                       {/* Click to expand prompt */}
-                      <div className="mt-2 text-[10px] text-white/50 font-mono tracking-wider flex items-center gap-1">
-                        <span>Click to view full details</span>
+                      <div className="mt-2 text-[10px] text-white/50 font-mono tracking-wider flex items-center gap-1 group-hover:text-white/90 transition-colors">
+                        <span className="group-hover:underline underline-offset-2">
+                          Click to view full details
+                        </span>
                         <span>→</span>
                       </div>
                     </div>

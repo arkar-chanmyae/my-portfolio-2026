@@ -21,7 +21,7 @@ export function SkillsSection({ portfolio }: SkillsSectionProps) {
   return (
     <section
       id="skills"
-      className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06] overflow-hidden"
+      className="py-32 px-6 md:px-12 lg:px-20 border-t border-ink/[0.06] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
@@ -47,12 +47,12 @@ export function SkillsSection({ portfolio }: SkillsSectionProps) {
               >
                 {/* Number top-left */}
                 <div className="relative z-10 p-7">
-                  <span className="font-pixel text-[11px] text-black/20 tracking-widest block">{`0${index + 1}`}</span>
+                  <span className="font-pixel text-[11px] text-ink/20 tracking-widest block">{`0${index + 1}`}</span>
                 </div>
                 {/* Text pushed further down */}
                 <div className="relative z-10 px-7 pb-7 mt-auto pt-4">
                   <h3 className="text-2xl font-light mb-3">{skill.title}</h3>
-                  <p className="text-sm text-black/45 leading-relaxed">
+                  <p className="text-sm text-ink/45 leading-relaxed">
                     {skill.description}
                   </p>
                 </div>

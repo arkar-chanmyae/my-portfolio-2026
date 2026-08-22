@@ -40,7 +40,7 @@ export default function AgenticPage() {
   }, []);
 
   return (
-    <div className="bg-[#F5F4F0] text-[#111] min-h-screen font-sans antialiased">
+    <div className="bg-background text-foreground min-h-screen font-sans antialiased">
       <MobileNav portfolio={portfolio} />
 
       <HeroSection

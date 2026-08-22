@@ -10,7 +10,7 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
   return (
     <section
       id="contact"
-      className="relative py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06] overflow-hidden"
+      className="relative py-32 px-6 md:px-12 lg:px-20 border-t border-ink/[0.06] overflow-hidden"
     >
       {/* Glass panels image — anchored to bottom center */}
       <img
@@ -30,12 +30,12 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
           WebkitBackdropFilter: "blur(18px)",
         }}
       />
-      {/* Colour fade from bottom to site bg #f5f4f0 */}
+      {/* Colour fade from bottom to site bg (theme-aware) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgb(245,244,240) 0%, rgba(245,244,240,0.92) 18%, rgba(245,244,240,0.55) 35%, transparent 55%)",
+            "linear-gradient(to top, var(--background) 0%, color-mix(in srgb, var(--background) 92%, transparent) 18%, color-mix(in srgb, var(--background) 55%, transparent) 35%, transparent 55%)",
         }}
       />
       <div className="relative z-10 max-w-2xl mx-auto text-center">
@@ -46,7 +46,7 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
           {portfolio?.contact?.email && (
             <a
               href={`mailto:${portfolio.contact.email}`}
-              className="px-8 py-3 bg-[#111] text-white text-sm rounded-xl hover:bg-[#333] transition-colors tracking-widest font-medium"
+              className="px-8 py-3 bg-ink text-paper text-sm rounded-xl hover:bg-ink/85 transition-colors tracking-widest font-medium"
             >
               EMAIL ME
             </a>
@@ -54,14 +54,14 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
           {portfolio?.contact?.phone && (
             <a
               href={`tel:${portfolio.contact.phone}`}
-              className="px-8 py-3 bg-white border border-black/10 text-[#111] text-sm rounded-xl hover:bg-black/5 transition-colors tracking-widest font-medium"
+              className="px-8 py-3 bg-paper border border-ink/10 text-ink text-sm rounded-xl hover:bg-ink/5 transition-colors tracking-widest font-medium"
             >
               CALL ME
             </a>
           )}
         </div>
         {portfolio?.contact?.location && (
-          <p className="mt-8 text-xs text-black/40 tracking-widest uppercase">
+          <p className="mt-8 text-sm text-ink/70 tracking-widest uppercase dark:text-white/80">
             Based in {portfolio.contact.location}
           </p>
         )}

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Work Experience", href: "#work-experience" },
@@ -16,7 +18,8 @@ const NAV_STYLE = {
   backdropFilter: "blur(16px)",
   WebkitBackdropFilter: "blur(16px)",
   background: "rgba(245,244,240,0.30)",
-  boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
+  boxShadow:
+    "0 8px 32px color-mix(in srgb, var(--ink) 8%, transparent), 0 2px 8px color-mix(in srgb, var(--ink) 6%, transparent)",
 } as const;
 
 export interface MobileNavProps {
@@ -25,6 +28,9 @@ export interface MobileNavProps {
 
 export function MobileNav({ portfolio }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const close = () => setOpen(false);
 
@@ -50,15 +56,15 @@ export function MobileNav({ portfolio }: MobileNavProps) {
       <div className="pointer-events-auto w-full max-w-3xl">
         {/* Main bar */}
         <nav
-          className="flex items-center justify-between px-5 py-3 rounded-2xl border border-black/[0.06]"
+          className="flex items-center justify-between px-5 py-3 rounded-2xl border border-ink/[0.06]"
           style={NAV_STYLE}
         >
           <a
             href="#"
             onClick={(e) => handleLinkClick(e, "#", true)}
-            className="font-pixel text-xs tracking-[0.25em] text-black/70 hover:text-black transition-colors"
+            className="font-pixel text-xs tracking-[0.25em] text-ink/70 hover:text-ink transition-colors"
           >
-            YUUTA
+            Arkar
           </a>
 
           {/* Desktop links */}
@@ -71,7 +77,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
                 key={l.label}
                 href={l.href}
                 onClick={(e) => handleLinkClick(e, l.href, l.isTop)}
-                className="text-[11px] text-black/60 hover:text-black transition-colors duration-200 tracking-wide font-medium"
+                className="text-[11px] text-ink/60 hover:text-ink transition-colors duration-200 tracking-wide font-medium"
               >
                 {l.label.toUpperCase()}
               </a>
@@ -79,13 +85,28 @@ export function MobileNav({ portfolio }: MobileNavProps) {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Theme toggle */}
+            <button
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
+              className="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-ink/[0.04] transition-colors text-ink/60 hover:text-ink"
+              aria-label="Toggle theme"
+            >
+              {mounted && resolvedTheme === "dark" ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </button>
+
             {portfolio?.hero?.resumeFile ? (
               <a
                 href={portfolio.hero.resumeFile}
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className="text-[11px] px-4 py-2 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
+                className="text-[11px] px-4 py-2 rounded-xl border border-ink/10 text-ink/60 hover:text-ink hover:border-ink/20 hover:bg-ink/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
                 style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
               >
                 DOWNLOAD CV
@@ -97,7 +118,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
                     "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
                   )
                 }
-                className="text-[11px] px-4 py-2 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
+                className="text-[11px] px-4 py-2 rounded-xl border border-ink/10 text-ink/60 hover:text-ink hover:border-ink/20 hover:bg-ink/[0.03] transition-all duration-200 tracking-wide font-medium hidden md:block"
                 style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
               >
                 DOWNLOAD CV
@@ -107,7 +128,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
             {/* Burger — mobile only */}
             <button
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-lg hover:bg-black/[0.04] transition-colors"
+              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-lg hover:bg-ink/[0.04] transition-colors"
               aria-label={open ? "Close menu" : "Open menu"}
             >
               <span
@@ -142,7 +163,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
           style={{ maxHeight: open ? "380px" : "0px", opacity: open ? 1 : 0 }}
         >
           <div
-            className="rounded-2xl border border-black/[0.06] px-2 py-2 flex flex-col"
+            className="rounded-2xl border border-ink/[0.06] px-2 py-2 flex flex-col"
             style={NAV_STYLE}
           >
             {NAV_LINKS.map((l) => (
@@ -150,7 +171,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
                 key={l.label}
                 href={l.href}
                 onClick={(e) => handleLinkClick(e, l.href, l.isTop)}
-                className="px-4 py-3 text-sm text-black/60 hover:text-black hover:bg-black/[0.03] rounded-xl transition-colors tracking-wide"
+                className="px-4 py-3 text-sm text-ink/60 hover:text-ink hover:bg-ink/[0.03] rounded-xl transition-colors tracking-wide"
                 style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
               >
                 {l.label}
@@ -163,7 +184,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  className="block text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium"
+                  className="block text-center text-[11px] px-4 py-2.5 rounded-xl border border-ink/10 text-ink/60 hover:text-ink hover:border-ink/20 hover:bg-ink/[0.03] transition-all duration-200 tracking-wide font-medium"
                   style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
                 >
                   DOWNLOAD CV
@@ -175,7 +196,7 @@ export function MobileNav({ portfolio }: MobileNavProps) {
                       "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
                     )
                   }
-                  className="w-full text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide font-medium"
+                  className="w-full text-center text-[11px] px-4 py-2.5 rounded-xl border border-ink/10 text-ink/60 hover:text-ink hover:border-ink/20 hover:bg-ink/[0.03] transition-all duration-200 tracking-wide font-medium"
                   style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
                 >
                   DOWNLOAD CV

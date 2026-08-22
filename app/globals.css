@@ -4,8 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* semantic ink/paper pair — flips with theme */
+  --ink: oklch(0.205 0 0); /* dark text / dark surfaces on light bg */
+  --paper: oklch(0.97 0.004 90); /* warm light background */
+  --background: oklch(0.98 0.003 90);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -40,8 +43,10 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --ink: oklch(0.97 0 0); /* light text on dark bg */
+  --paper: oklch(0.19 0.005 260);
+  --background: oklch(0.16 0.005 260);
+  --foreground: var(--ink);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
@@ -77,6 +82,8 @@
 @theme inline {
   --font-sans: "Geist", "Geist Fallback";
   --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
   --font-pixel: "Courier Prime", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -120,8 +127,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
   body {
     @apply bg-background text-foreground;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 }
 

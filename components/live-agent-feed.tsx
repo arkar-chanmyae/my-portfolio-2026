@@ -86,7 +86,7 @@ function ProgressBar({ initial }: { initial: number }) {
       style={{
         width: "100%",
         height: 2,
-        background: "rgba(0,0,0,0.08)",
+        background: "color-mix(in srgb, var(--ink) 8%, transparent)",
         borderRadius: 9,
       }}
     >
@@ -95,7 +95,7 @@ function ProgressBar({ initial }: { initial: number }) {
           height: "100%",
           borderRadius: 9,
           width: `${pct}%`,
-          background: "rgba(0,0,0,0.35)",
+          background: "color-mix(in srgb, var(--ink) 35%, transparent)",
           transition: "width 0.5s linear",
         }}
       />
@@ -187,10 +187,10 @@ export function LiveAgentFeed() {
   return (
     <div
       style={{
-        border: "1px solid rgba(0,0,0,0.08)",
+        border: "1px solid color-mix(in srgb, var(--ink) 8%, transparent)",
         borderRadius: 16,
         overflow: "hidden",
-        background: "rgba(255,255,255,0.7)",
+        background: "color-mix(in srgb, var(--paper) 70%, transparent)",
       }}
     >
       {/* Table header */}
@@ -199,8 +199,9 @@ export function LiveAgentFeed() {
           display: "grid",
           gridTemplateColumns: "80px 1fr 80px 70px",
           padding: "8px 16px",
-          borderBottom: "1px solid rgba(0,0,0,0.06)",
-          background: "rgba(0,0,0,0.03)",
+          borderBottom:
+            "1px solid color-mix(in srgb, var(--ink) 6%, transparent)",
+          background: "color-mix(in srgb, var(--ink) 3%, transparent)",
         }}
       >
         {["AGENT", "TASK", "REGION", "STATUS"].map((h) => (
@@ -209,7 +210,7 @@ export function LiveAgentFeed() {
             style={{
               fontSize: 8,
               letterSpacing: "0.16em",
-              color: "rgba(0,0,0,0.30)",
+              color: "color-mix(in srgb, var(--ink) 30%, transparent)",
               fontFamily: "monospace",
             }}
           >
@@ -227,7 +228,8 @@ export function LiveAgentFeed() {
               display: "grid",
               gridTemplateColumns: "80px 1fr 80px 70px",
               padding: "10px 16px",
-              borderBottom: "1px solid rgba(0,0,0,0.04)",
+              borderBottom:
+                "1px solid color-mix(in srgb, var(--ink) 4%, transparent)",
               gap: 8,
               alignItems: "center",
               animation:
@@ -242,7 +244,7 @@ export function LiveAgentFeed() {
                 style={{
                   fontSize: 9,
                   fontFamily: "monospace",
-                  color: "rgba(0,0,0,0.65)",
+                  color: "color-mix(in srgb, var(--ink) 65%, transparent)",
                   marginBottom: 1,
                 }}
               >
@@ -252,7 +254,7 @@ export function LiveAgentFeed() {
                 style={{
                   fontSize: 7.5,
                   fontFamily: "monospace",
-                  color: "rgba(0,0,0,0.25)",
+                  color: "color-mix(in srgb, var(--ink) 25%, transparent)",
                 }}
               >
                 #{row.id}
@@ -264,7 +266,7 @@ export function LiveAgentFeed() {
               <div
                 style={{
                   fontSize: 9,
-                  color: "rgba(0,0,0,0.50)",
+                  color: "color-mix(in srgb, var(--ink) 50%, transparent)",
                   lineHeight: 1.35,
                   marginBottom: 5,
                   overflow: "hidden",
@@ -282,7 +284,7 @@ export function LiveAgentFeed() {
               style={{
                 fontSize: 8,
                 fontFamily: "monospace",
-                color: "rgba(0,0,0,0.30)",
+                color: "color-mix(in srgb, var(--ink) 30%, transparent)",
               }}
             >
               {row.region}
@@ -311,7 +313,7 @@ export function LiveAgentFeed() {
                 style={{
                   fontSize: 8,
                   fontFamily: "monospace",
-                  color: "rgba(0,0,0,0.35)",
+                  color: "color-mix(in srgb, var(--ink) 35%, transparent)",
                 }}
               >
                 {row.status.label}
@@ -353,7 +355,7 @@ export function LiveAgentCounter() {
         fontFamily: "monospace",
         fontSize: "clamp(3rem, 6vw, 5rem)",
         fontWeight: 300,
-        color: "rgba(0,0,0,0.85)",
+        color: "color-mix(in srgb, var(--ink) 85%, transparent)",
         lineHeight: 1,
         letterSpacing: "-0.02em",
         transition: "color 0.3s ease",
