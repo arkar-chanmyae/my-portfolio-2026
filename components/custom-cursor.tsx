@@ -12,6 +12,13 @@ export function CustomCursor() {
 
   useEffect(() => {
     setMounted(true);
+    // Skip the custom cursor entirely on touch-only devices (no mouse cursor to replace)
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none), (pointer: coarse)").matches
+    ) {
+      return;
+    }
     document.body.classList.add("has-custom-cursor");
 
     // Track theme so the prism colors flip with light/dark mode
@@ -102,7 +109,7 @@ export function CustomCursor() {
 
   return (
     <div
-      className="fixed pointer-events-none z-[99999] select-none hidden md:block"
+      className="fixed pointer-events-none z-[99999] select-none"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,

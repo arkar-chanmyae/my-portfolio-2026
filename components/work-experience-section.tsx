@@ -201,11 +201,14 @@ export function WorkExperienceSection({
       : SEEDED_EXPERIENCES;
 
   const handleCardClick = (item: WorkExperienceItem, index: number) => {
-    if (activeOption === index) {
-      // Clicking already active card opens modal in full detail
-      setModalItem(item);
+    // Unified behavior (works for mouse + touch):
+    // - tapping/clicking a non-expanded card expands it
+    // - tapping/clicking the expanded card opens the full-detail modal
+    if (activeOption !== index) {
+      setActiveOption(index);
+      return;
     }
-    // Collapsed cards are activated by hover, not click
+    setModalItem(item);
   };
 
   const handleCardHover = (index: number) => {
