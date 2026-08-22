@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 import { Courier_Prime } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { CustomCursor } from "@/components/custom-cursor";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -18,40 +19,32 @@ const _ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Yuuta | Medical AI Engineer",
+  title: " | Medical AI Engineer",
   description: "Medical AI Enthusiast with Full Stack Web Development Skills.",
   keywords: [
     "Software Engineer",
     "Full-Stack Developer",
     "Web Development",
     "Medical AI Engineer",
-    "Yuuta",
+    "Arkar",
   ],
-  authors: [{ name: "Yuuta" }],
+  authors: [{ name: "Arkar" }],
   openGraph: {
-    title: "Yuuta | Medical AI Engineer",
+    title: "Arkar | Medical AI Engineer",
     description:
       "Medical AI Enthusiast with Full Stack Web Development Skills.",
     type: "website",
     url: "https://arkarchanmyae.vercel.app",
-    siteName: "Yuuta",
+    siteName: "Arkar",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yuuta | Medical AI Engineer",
+    title: "Arkar | Medical AI Engineer",
     description:
       "Medical AI Enthusiast with Full Stack Web Development Skills.",
   },
   icons: {
     icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
       {
         url: "/icon.svg",
         type: "image/svg+xml",
@@ -67,10 +60,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <CustomCursor />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <CustomCursor />
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

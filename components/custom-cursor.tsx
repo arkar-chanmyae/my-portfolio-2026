@@ -8,10 +8,21 @@ export function CustomCursor() {
   const [cursorScale, setCursorScale] = useState(2.0);
   const [isHovering, setIsHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     document.body.classList.add("has-custom-cursor");
+
+    // Track theme so the prism colors flip with light/dark mode
+    const updateTheme = () =>
+      setIsDark(document.documentElement.classList.contains("dark"));
+    updateTheme();
+    const themeObserver = new MutationObserver(updateTheme);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -64,6 +75,7 @@ export function CustomCursor() {
 
     return () => {
       document.body.classList.remove("has-custom-cursor");
+      themeObserver.disconnect();
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
@@ -99,20 +111,7 @@ export function CustomCursor() {
         willChange: "left, top",
       }}
     >
-      {/* Intense dark radial shadow centered at the tip (the mouse hot-spot) */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: 0,
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "40px",
-          height: "40px",
-          background:
-            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%)",
-          zIndex: -1,
-        }}
-      />
+      {/* (Radial tip shadow removed) */}
 
       {/* Outer tilt wrapper — inclined like a standard OS cursor */}
       <div
@@ -154,8 +153,12 @@ export function CustomCursor() {
             >
               <polygon
                 points={sideFacePoints}
-                fill="rgba(255, 255, 255, 0.18)"
-                stroke="rgba(255, 255, 255, 0.75)"
+                fill={
+                  isDark ? "rgba(255, 255, 255, 0.18)" : "rgba(0, 0, 0, 0.10)"
+                }
+                stroke={
+                  isDark ? "rgba(255, 255, 255, 0.75)" : "rgba(0, 0, 0, 0.55)"
+                }
                 strokeWidth="0.8"
                 strokeLinejoin="round"
               />
@@ -178,8 +181,12 @@ export function CustomCursor() {
           >
             <polygon
               points={bottomPoints}
-              fill="rgba(255, 255, 255, 0.12)"
-              stroke="rgba(255, 255, 255, 0.5)"
+              fill={
+                isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.07)"
+              }
+              stroke={
+                isDark ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.35)"
+              }
               strokeWidth="0.6"
               strokeLinejoin="round"
             />

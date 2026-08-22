@@ -14,7 +14,7 @@ interface ProjectsSectionProps {
 function ProjectSkeleton({ delay = 0 }: { delay?: number }) {
   return (
     <div
-      className="relative bg-[#faf9f7] rounded-2xl border border-black/[0.07] overflow-hidden p-8 mb-4 animate-pulse"
+      className="relative bg-paper rounded-2xl border border-ink/[0.07] overflow-hidden p-8 mb-4 animate-pulse"
       style={{
         animationDelay: `${delay}ms`,
         animationDuration: "1.6s",
@@ -23,8 +23,8 @@ function ProjectSkeleton({ delay = 0 }: { delay?: number }) {
       <div className="md:max-w-[60%]">
         {/* Skeleton Tags */}
         <div className="flex items-center gap-2 mb-6">
-          <div className="h-5 w-16 bg-black/[0.05] rounded-full" />
-          <div className="h-5 w-24 bg-black/[0.05] rounded-full" />
+          <div className="h-5 w-16 bg-ink/[0.05] rounded-full" />
+          <div className="h-5 w-24 bg-ink/[0.05] rounded-full" />
         </div>
 
         {/* Skeleton Title */}
@@ -32,16 +32,16 @@ function ProjectSkeleton({ delay = 0 }: { delay?: number }) {
 
         {/* Skeleton Description */}
         <div className="space-y-2 mb-8">
-          <div className="h-3.5 w-full bg-black/[0.04] rounded" />
-          <div className="h-3.5 w-11/12 bg-black/[0.04] rounded" />
-          <div className="h-3.5 w-4/5 bg-black/[0.04] rounded" />
+          <div className="h-3.5 w-full bg-ink/[0.04] rounded" />
+          <div className="h-3.5 w-11/12 bg-ink/[0.04] rounded" />
+          <div className="h-3.5 w-4/5 bg-ink/[0.04] rounded" />
         </div>
       </div>
 
       {/* Skeleton Footer */}
-      <div className="flex gap-8 pt-6 border-t border-black/[0.05]">
-        <div className="h-4 w-24 bg-black/[0.05] rounded" />
-        <div className="h-4 w-28 bg-black/[0.05] rounded" />
+      <div className="flex gap-8 pt-6 border-t border-ink/[0.05]">
+        <div className="h-4 w-24 bg-ink/[0.05] rounded" />
+        <div className="h-4 w-28 bg-ink/[0.05] rounded" />
       </div>
     </div>
   );
@@ -154,8 +154,8 @@ export function ProjectsSection({ portfolio }: ProjectsSectionProps) {
                   onClick={() => setActiveProjectTab(tab)}
                   className={`px-5 py-2 text-xs rounded-xl transition-all duration-300 tracking-wider font-semibold uppercase ${
                     isActive
-                      ? "bg-[#111] text-white shadow-sm"
-                      : "bg-white/60 border border-black/5 text-black/50 hover:text-black hover:bg-black/[0.03]"
+                      ? "bg-ink text-paper shadow-sm"
+                      : "bg-paper/60 border border-ink/5 text-ink/50 hover:text-ink hover:bg-ink/[0.03]"
                   }`}
                   style={{ backdropFilter: "blur(8px)" }}
                 >

@@ -14,7 +14,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
   const isLoaded = !!portfolio?.hero;
 
   return (
-    <section className="relative h-screen min-h-[640px] overflow-hidden bg-[#F5F4F0] flex flex-col justify-between">
+    <section className="relative h-screen min-h-[640px] overflow-hidden bg-paper flex flex-col justify-between">
       {/* Subtle grid lines matching the exact author ratio */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40 z-0">
         {[...Array(8)].map((_, i) => (
@@ -63,7 +63,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
               <RevealText
                 key="hero-name"
                 as="h1"
-                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-[#111] leading-[0.95] tracking-tight"
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-ink leading-[0.95] tracking-tight"
                 style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
                 stagger={60}
                 duration={800}
@@ -74,7 +74,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
               <RevealText
                 key="hero-tagline"
                 as="p"
-                className="text-2xl sm:text-3xl md:text-4xl text-black/60 mt-4 font-light max-w-2xl leading-snug"
+                className="text-2xl sm:text-3xl md:text-4xl text-ink/60 mt-4 font-light max-w-2xl leading-snug"
                 style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
                 stagger={60}
                 duration={800}
@@ -88,7 +88,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
             <RevealText
               key="hero-loading"
               as="h1"
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-[#111]/30 leading-[0.95] tracking-tight"
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-ink/30 leading-[0.95] tracking-tight"
               style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
               stagger={60}
               duration={800}
@@ -117,7 +117,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
               const target = document.querySelector("#contact");
               if (target) target.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-3.5 bg-[#111] text-white text-xs rounded-xl hover:bg-[#333] transition-colors tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] shadow-sm"
+            className="px-8 py-3.5 bg-ink text-paper text-xs rounded-xl hover:bg-ink/85 transition-colors tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] shadow-sm"
           >
             HIRE ME!
           </a>
@@ -127,7 +127,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
               download
-              className="px-8 py-3.5 bg-white/70 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
+              className="px-8 py-3.5 bg-paper/70 border border-ink/10 text-ink text-xs rounded-xl hover:bg-ink/5 hover:border-ink/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
             >
               DOWNLOAD CV
             </a>
@@ -138,7 +138,7 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
                   "CV file is not configured in the database yet. Convert your Google Drive link to direct download and set it in hero.resumeFile!",
                 )
               }
-              className="px-8 py-3.5 bg-white/70 border border-black/10 text-[#111] text-xs rounded-xl hover:bg-black/5 hover:border-black/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
+              className="px-8 py-3.5 bg-paper/70 border border-ink/10 text-ink text-xs rounded-xl hover:bg-ink/5 hover:border-ink/20 transition-all tracking-widest font-semibold font-sans flex items-center justify-center min-w-[140px] backdrop-blur-md shadow-sm"
             >
               DOWNLOAD CV
             </button>

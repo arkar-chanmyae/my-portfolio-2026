@@ -440,7 +440,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function Bar({
   pct,
-  color = "rgba(0,0,0,0.75)",
+  color = "color-mix(in srgb, var(--ink) 75%, transparent)",
 }: {
   pct: number;
   color?: string;
@@ -454,7 +454,7 @@ function Bar({
     <div
       style={{
         height: 2,
-        background: "rgba(0,0,0,0.07)",
+        background: "color-mix(in srgb, var(--ink) 7%, transparent)",
         borderRadius: 99,
         width: "100%",
         overflow: "hidden",
@@ -534,11 +534,11 @@ function HeatCell({ level, animDelay }: { level: number; animDelay: number }) {
     return () => clearTimeout(t);
   }, [animDelay]);
   const colors = [
-    "rgba(0,0,0,0.05)",
-    "rgba(0,0,0,0.15)",
-    "rgba(0,0,0,0.32)",
-    "rgba(0,0,0,0.55)",
-    "rgba(0,0,0,0.8)",
+    "color-mix(in srgb, var(--ink) 5%, transparent)",
+    "color-mix(in srgb, var(--ink) 15%, transparent)",
+    "color-mix(in srgb, var(--ink) 32%, transparent)",
+    "color-mix(in srgb, var(--ink) 55%, transparent)",
+    "color-mix(in srgb, var(--ink) 80%, transparent)",
   ];
   return (
     <div
@@ -575,8 +575,9 @@ function ReviewLine({
       <div
         style={{
           padding: "3px 10px",
-          background: "rgba(0,0,0,0.04)",
-          borderLeft: "2px solid rgba(0,0,0,0.08)",
+          background: "color-mix(in srgb, var(--ink) 4%, transparent)",
+          borderLeft:
+            "2px solid color-mix(in srgb, var(--ink) 8%, transparent)",
           margin: "2px 0",
           animation: "logIn 0.2s ease forwards",
           opacity: 0,
@@ -586,7 +587,7 @@ function ReviewLine({
           style={{
             fontSize: 9,
             fontFamily: "monospace",
-            color: "rgba(0,0,0,0.55)",
+            color: "color-mix(in srgb, var(--ink) 55%, transparent)",
           }}
         >
           {item.text}
@@ -617,14 +618,17 @@ function ReviewLine({
           style={{
             width: 9,
             height: 9,
-            color: "rgba(0,0,0,0.35)",
+            color: "color-mix(in srgb, var(--ink) 35%, transparent)",
             flexShrink: 0,
           }}
         />
       ),
-      color: "rgba(0,0,0,0.5)",
+      color: "color-mix(in srgb, var(--ink) 50%, transparent)",
     },
-  }[item.type] ?? { icon: null, color: "rgba(0,0,0,0.5)" };
+  }[item.type] ?? {
+    icon: null,
+    color: "color-mix(in srgb, var(--ink) 50%, transparent)",
+  };
 
   return (
     <div
@@ -648,7 +652,7 @@ function ReviewLine({
           <span
             style={{
               fontSize: 8,
-              color: "rgba(0,0,0,0.3)",
+              color: "color-mix(in srgb, var(--ink) 30%, transparent)",
               marginLeft: 5,
               fontFamily: "monospace",
             }}
@@ -774,7 +778,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
 
   const panel: React.CSSProperties = {
     background: "#fff",
-    border: "1px solid rgba(0,0,0,0.07)",
+    border: "1px solid color-mix(in srgb, var(--ink) 7%, transparent)",
     borderRadius: 10,
     overflow: "hidden",
   };
@@ -790,12 +794,12 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
           width: "100%",
           maxWidth: 900,
           background: "rgba(246,245,242,0.96)",
-          border: "1px solid rgba(0,0,0,0.1)",
+          border: "1px solid color-mix(in srgb, var(--ink) 10%, transparent)",
           backdropFilter: "blur(32px)",
           borderRadius: 18,
           overflow: "hidden",
           boxShadow:
-            "0 28px 70px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.95) inset",
+            "0 28px 70px color-mix(in srgb, var(--ink) 25%, transparent), 0 1px 0 color-mix(in srgb, var(--paper) 95%, transparent) inset",
           // Slide up from bottom when revealed
           opacity: revealed ? 1 : 0,
           transform: revealed ? "translateY(0)" : "translateY(72px)",
@@ -809,8 +813,9 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
             display: "flex",
             alignItems: "center",
             padding: "9px 14px",
-            borderBottom: "1px solid rgba(0,0,0,0.07)",
-            background: "rgba(255,255,255,0.65)",
+            borderBottom:
+              "1px solid color-mix(in srgb, var(--ink) 7%, transparent)",
+            background: "color-mix(in srgb, var(--paper) 65%, transparent)",
             position: "relative",
           }}
         >
@@ -835,7 +840,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               transform: "translateX(-50%)",
               fontSize: 10,
               letterSpacing: "0.18em",
-              color: "rgba(0,0,0,0.28)",
+              color: "color-mix(in srgb, var(--ink) 28%, transparent)",
               fontFamily: "monospace",
             }}
           >
@@ -868,7 +873,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
-            borderBottom: "1px solid rgba(0,0,0,0.06)",
+            borderBottom:
+              "1px solid color-mix(in srgb, var(--ink) 6%, transparent)",
             background: "rgba(251,250,247,0.9)",
           }}
         >
@@ -904,7 +910,10 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 padding: "9px 12px",
                 height: 82,
                 overflow: "hidden",
-                borderRight: i < 3 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                borderRight:
+                  i < 3
+                    ? "1px solid color-mix(in srgb, var(--ink) 6%, transparent)"
+                    : "none",
                 ...anim(60 + i * 45),
               }}
             >
@@ -916,13 +925,19 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   marginBottom: 4,
                 }}
               >
-                <span style={{ color: "rgba(0,0,0,0.32)" }}>{m.icon}</span>
+                <span
+                  style={{
+                    color: "color-mix(in srgb, var(--ink) 32%, transparent)",
+                  }}
+                >
+                  {m.icon}
+                </span>
                 <span
                   style={{
                     fontSize: 7.5,
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
-                    color: "rgba(0,0,0,0.32)",
+                    color: "color-mix(in srgb, var(--ink) 32%, transparent)",
                     fontFamily: "monospace",
                   }}
                 >
@@ -933,7 +948,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 style={{
                   fontSize: 20,
                   fontWeight: 700,
-                  color: "#111",
+                  color: "var(--ink)",
                   lineHeight: 1,
                   marginBottom: 5,
                   fontFamily: "monospace",
@@ -979,14 +994,18 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                 <GitPullRequest
-                  style={{ width: 10, height: 10, color: "rgba(0,0,0,0.38)" }}
+                  style={{
+                    width: 10,
+                    height: 10,
+                    color: "color-mix(in srgb, var(--ink) 38%, transparent)",
+                  }}
                 />
                 <span
                   style={{
                     fontSize: 8.5,
                     letterSpacing: "0.13em",
                     textTransform: "uppercase",
-                    color: "rgba(0,0,0,0.38)",
+                    color: "color-mix(in srgb, var(--ink) 38%, transparent)",
                     fontFamily: "monospace",
                   }}
                 >
@@ -996,7 +1015,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               <span
                 style={{
                   fontSize: 7.5,
-                  color: "rgba(0,0,0,0.25)",
+                  color: "color-mix(in srgb, var(--ink) 25%, transparent)",
                   fontFamily: "monospace",
                 }}
               >
@@ -1033,7 +1052,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                         style={{
                           fontSize: 9.5,
                           fontWeight: 600,
-                          color: "#111",
+                          color: "var(--ink)",
                           lineHeight: 1.3,
                           marginBottom: 2,
                         }}
@@ -1044,7 +1063,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                         style={{
                           fontSize: 7.5,
                           fontFamily: "monospace",
-                          color: "rgba(0,0,0,0.32)",
+                          color:
+                            "color-mix(in srgb, var(--ink) 32%, transparent)",
                         }}
                       >
                         {pr.branch} · {pr.agent}
@@ -1089,11 +1109,16 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                           style={{
                             width: 7,
                             height: 7,
-                            color: "rgba(0,0,0,0.28)",
+                            color:
+                              "color-mix(in srgb, var(--ink) 28%, transparent)",
                           }}
                         />
                         <span
-                          style={{ fontSize: 7.5, color: "rgba(0,0,0,0.28)" }}
+                          style={{
+                            fontSize: 7.5,
+                            color:
+                              "color-mix(in srgb, var(--ink) 28%, transparent)",
+                          }}
                         >
                           {pr.comments}
                         </span>
@@ -1106,13 +1131,15 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                         style={{
                           width: 7,
                           height: 7,
-                          color: "rgba(0,0,0,0.22)",
+                          color:
+                            "color-mix(in srgb, var(--ink) 22%, transparent)",
                         }}
                       />
                       <span
                         style={{
                           fontSize: 7.5,
-                          color: "rgba(0,0,0,0.28)",
+                          color:
+                            "color-mix(in srgb, var(--ink) 28%, transparent)",
                           fontFamily: "monospace",
                         }}
                       >
@@ -1143,14 +1170,18 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 }}
               >
                 <Terminal
-                  style={{ width: 9, height: 9, color: "rgba(0,0,0,0.33)" }}
+                  style={{
+                    width: 9,
+                    height: 9,
+                    color: "color-mix(in srgb, var(--ink) 33%, transparent)",
+                  }}
                 />
                 <span
                   style={{
                     fontSize: 7.5,
                     letterSpacing: "0.13em",
                     textTransform: "uppercase",
-                    color: "rgba(0,0,0,0.33)",
+                    color: "color-mix(in srgb, var(--ink) 33%, transparent)",
                     fontFamily: "monospace",
                   }}
                 >
@@ -1182,7 +1213,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 <span
                   style={{
                     fontSize: 7,
-                    color: "rgba(0,0,0,0.26)",
+                    color: "color-mix(in srgb, var(--ink) 26%, transparent)",
                     fontFamily: "monospace",
                   }}
                 >
@@ -1196,11 +1227,11 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                       height: 7,
                       borderRadius: 1.5,
                       background: [
-                        "rgba(0,0,0,0.05)",
-                        "rgba(0,0,0,0.15)",
-                        "rgba(0,0,0,0.32)",
-                        "rgba(0,0,0,0.55)",
-                        "rgba(0,0,0,0.8)",
+                        "color-mix(in srgb, var(--ink) 5%, transparent)",
+                        "color-mix(in srgb, var(--ink) 15%, transparent)",
+                        "color-mix(in srgb, var(--ink) 32%, transparent)",
+                        "color-mix(in srgb, var(--ink) 55%, transparent)",
+                        "color-mix(in srgb, var(--ink) 80%, transparent)",
                       ][l],
                     }}
                   />
@@ -1208,7 +1239,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 <span
                   style={{
                     fontSize: 7,
-                    color: "rgba(0,0,0,0.26)",
+                    color: "color-mix(in srgb, var(--ink) 26%, transparent)",
                     fontFamily: "monospace",
                   }}
                 >
@@ -1239,14 +1270,18 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               }}
             >
               <Eye
-                style={{ width: 10, height: 10, color: "rgba(0,0,0,0.38)" }}
+                style={{
+                  width: 10,
+                  height: 10,
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
+                }}
               />
               <span
                 style={{
                   fontSize: 8.5,
                   letterSpacing: "0.13em",
                   textTransform: "uppercase",
-                  color: "rgba(0,0,0,0.38)",
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
                   fontFamily: "monospace",
                 }}
               >
@@ -1268,7 +1303,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                 style={{
                   marginBottom: 7,
                   paddingBottom: 7,
-                  borderBottom: "1px solid rgba(0,0,0,0.05)",
+                  borderBottom:
+                    "1px solid color-mix(in srgb, var(--ink) 5%, transparent)",
                   flexShrink: 0,
                 }}
               >
@@ -1276,7 +1312,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   style={{
                     fontSize: 9.5,
                     fontWeight: 600,
-                    color: "#111",
+                    color: "var(--ink)",
                     marginBottom: 2,
                   }}
                 >
@@ -1301,7 +1337,12 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   >
                     -27
                   </span>
-                  <span style={{ fontSize: 7.5, color: "rgba(0,0,0,0.28)" }}>
+                  <span
+                    style={{
+                      fontSize: 7.5,
+                      color: "color-mix(in srgb, var(--ink) 28%, transparent)",
+                    }}
+                  >
                     5 files
                   </span>
                 </div>
@@ -1337,7 +1378,9 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                           fontSize: 7.5,
                           fontFamily: "monospace",
                           color:
-                            i === reviewFileIdx ? "#111" : "rgba(0,0,0,0.42)",
+                            i === reviewFileIdx
+                              ? "var(--ink)"
+                              : "color-mix(in srgb, var(--ink) 42%, transparent)",
                           transition: "color 0.4s ease",
                         }}
                       >
@@ -1357,7 +1400,11 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                     </div>
                     <Bar
                       pct={reviewFilePcts[i]}
-                      color={i === reviewFileIdx ? "#111" : "rgba(0,0,0,0.3)"}
+                      color={
+                        i === reviewFileIdx
+                          ? "var(--ink)"
+                          : "color-mix(in srgb, var(--ink) 30%, transparent)"
+                      }
                     />
                   </div>
                 ))}
@@ -1366,7 +1413,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               {/* Review comments — fixed height, clips overflow, no scroll */}
               <div
                 style={{
-                  borderTop: "1px solid rgba(0,0,0,0.05)",
+                  borderTop:
+                    "1px solid color-mix(in srgb, var(--ink) 5%, transparent)",
                   paddingTop: 7,
                   flex: 1,
                   overflow: "hidden",
@@ -1390,14 +1438,20 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   }}
                 >
                   <Terminal
-                    style={{ width: 7, height: 7, color: "rgba(0,0,0,0.18)" }}
+                    style={{
+                      width: 7,
+                      height: 7,
+                      color: "color-mix(in srgb, var(--ink) 18%, transparent)",
+                    }}
                   />
                   <span
                     style={{
                       display: "inline-block",
                       width: 4,
                       height: 9,
-                      background: cursor ? "rgba(0,0,0,0.38)" : "transparent",
+                      background: cursor
+                        ? "color-mix(in srgb, var(--ink) 38%, transparent)"
+                        : "transparent",
                       transition: "background 0.08s",
                     }}
                   />
@@ -1427,14 +1481,18 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               }}
             >
               <GitCommit
-                style={{ width: 10, height: 10, color: "rgba(0,0,0,0.38)" }}
+                style={{
+                  width: 10,
+                  height: 10,
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
+                }}
               />
               <span
                 style={{
                   fontSize: 8.5,
                   letterSpacing: "0.13em",
                   textTransform: "uppercase",
-                  color: "rgba(0,0,0,0.38)",
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
                   fontFamily: "monospace",
                 }}
               >
@@ -1447,7 +1505,10 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   key={c.hash}
                   style={{
                     padding: "7px 10px",
-                    borderBottom: i < 3 ? "1px solid rgba(0,0,0,0.04)" : "none",
+                    borderBottom:
+                      i < 3
+                        ? "1px solid color-mix(in srgb, var(--ink) 4%, transparent)"
+                        : "none",
                     animation: mounted
                       ? `fadeSlide 0.3s ease ${280 + i * 55}ms both`
                       : "none",
@@ -1457,7 +1518,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                     style={{
                       fontSize: 8.5,
                       fontWeight: 500,
-                      color: "#111",
+                      color: "var(--ink)",
                       lineHeight: 1.35,
                       marginBottom: 2,
                     }}
@@ -1479,7 +1540,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                     <span
                       style={{
                         fontSize: 7.5,
-                        color: "rgba(0,0,0,0.28)",
+                        color:
+                          "color-mix(in srgb, var(--ink) 28%, transparent)",
                         fontFamily: "monospace",
                       }}
                     >
@@ -1500,14 +1562,18 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
               }}
             >
               <Zap
-                style={{ width: 10, height: 10, color: "rgba(0,0,0,0.38)" }}
+                style={{
+                  width: 10,
+                  height: 10,
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
+                }}
               />
               <span
                 style={{
                   fontSize: 8.5,
                   letterSpacing: "0.13em",
                   textTransform: "uppercase",
-                  color: "rgba(0,0,0,0.38)",
+                  color: "color-mix(in srgb, var(--ink) 38%, transparent)",
                   fontFamily: "monospace",
                 }}
               >
@@ -1544,7 +1610,10 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "6px 10px",
-                    borderBottom: i < 3 ? "1px solid rgba(0,0,0,0.04)" : "none",
+                    borderBottom:
+                      i < 3
+                        ? "1px solid color-mix(in srgb, var(--ink) 4%, transparent)"
+                        : "none",
                   }}
                 >
                   <div
@@ -1556,7 +1625,8 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                           width: 8,
                           height: 8,
                           borderRadius: "50%",
-                          border: "1.5px solid rgba(0,0,0,0.5)",
+                          border:
+                            "1.5px solid color-mix(in srgb, var(--ink) 50%, transparent)",
                           borderTopColor: "transparent",
                           animation: "spin 0.9s linear infinite",
                           flexShrink: 0,
@@ -1576,7 +1646,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                       style={{
                         fontSize: 8.5,
                         fontFamily: "monospace",
-                        color: "#111",
+                        color: "var(--ink)",
                       }}
                     >
                       {a.name}
@@ -1585,7 +1655,7 @@ export function AgentInterface({ revealDelay = 0 }: { revealDelay?: number }) {
                   <span
                     style={{
                       fontSize: 7.5,
-                      color: "rgba(0,0,0,0.28)",
+                      color: "color-mix(in srgb, var(--ink) 28%, transparent)",
                       fontFamily: "monospace",
                     }}
                   >
