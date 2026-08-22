@@ -252,3 +252,5 @@ html {
     cursor: none !important;
   }
 }
+
+@plugin "@tailwindcss/typography";

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isVisible, setIsVisible] = useState(false);
-  const [cursorScale, setCursorScale] = useState(1.0);
+  const [cursorScale, setCursorScale] = useState(2.0);
   const [isHovering, setIsHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -50,10 +50,10 @@ export function CustomCursor() {
 
       if (isInteractive) {
         setIsHovering(true);
-        setCursorScale(1.35);
+        setCursorScale(2.35); // slightly larger when hovering
       } else {
         setIsHovering(false);
-        setCursorScale(1.0);
+        setCursorScale(2.0); // increased base scale to 2.0
       }
     };
 
@@ -97,11 +97,23 @@ export function CustomCursor() {
         // Tip of the pyramid = the mouse hot-spot
         transform: "translate(-50%, 0%)",
         willChange: "left, top",
-        // Dark shadow around the whole cursor
-        filter:
-          "drop-shadow(0 3px 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35))",
       }}
     >
+      {/* Intense dark radial shadow centered at the tip (the mouse hot-spot) */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: 0,
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "40px",
+          height: "40px",
+          background:
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%)",
+          zIndex: -1,
+        }}
+      />
+
       {/* Outer tilt wrapper — inclined like a standard OS cursor */}
       <div
         className="relative transition-transform duration-300 ease-out"

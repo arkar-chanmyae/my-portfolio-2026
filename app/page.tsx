@@ -7,10 +7,11 @@ import { HeroSection } from "@/components/hero-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { WorkExperienceSection } from "@/components/work-experience-section";
 import { EducationSection } from "@/components/education-section";
-import { SkillsSection } from "@/components/skills-section";
+// import { SkillsSection } from "@/components/skills-section";
 import { TechStackSection } from "@/components/tech-stack-section";
 import { ContactSection } from "@/components/contact-section";
 import { FooterSection } from "@/components/footer-section";
+import { Chathead } from "@/components/chathead";
 
 export default function AgenticPage() {
   const [heroReady, setHeroReady] = useState(true);
@@ -61,6 +62,8 @@ export default function AgenticPage() {
       <ContactSection portfolio={portfolio} />
 
       <FooterSection portfolio={portfolio} />
+
+      {portfolio && <Chathead portfolio={portfolio} />}
     </div>
   );
 }
