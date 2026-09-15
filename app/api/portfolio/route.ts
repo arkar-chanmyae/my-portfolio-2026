@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sortProjectsByEndDate } from "@/lib/project-sort";
 
 // Ensure Next does not attempt to statically collect page data
 export const dynamic = "force-dynamic";
@@ -24,7 +25,7 @@ export async function GET() {
       prisma.hero.findFirst().catch(() => null),
       prisma.aboutMe.findFirst().catch(() => null),
       prisma.techStack.findMany().catch(() => []),
-      prisma.project.findMany({ orderBy: { order: "asc" } }).catch(() => []),
+      prisma.project.findMany().catch(() => []),
       prisma.education.findMany({ orderBy: { order: "asc" } }).catch(() => []),
       prisma.professionalSkill
         .findMany({ orderBy: { order: "asc" } })
@@ -41,7 +42,9 @@ export async function GET() {
       hero,
       aboutMe,
       techStack,
-      projects,
+      // endDate is stored as a display string ("Jul 2024"), which MongoDB
+      // cannot sort chronologically, so sort in JS after fetching.
+      projects: sortProjectsByEndDate(projects),
       education,
       skills,
       workExperience,

@@ -21,6 +21,11 @@ const projectDates: Record<
   "Express social media API": { startDate: "Feb 2025", endDate: "May 2025" },
   "Tech Thoughts": { startDate: "Jul 2024", endDate: "Feb 2025" },
   "Mobile payment app (ongoing)": { startDate: "Feb 2025", endDate: null },
+  // Created Sep 4 2026, last pushed Sep 10 2026 — still active.
+  "LazyDev · AI-Native Autonomous Issue Resolver": {
+    startDate: "Sep 2026",
+    endDate: null,
+  },
 };
 
 async function main() {
