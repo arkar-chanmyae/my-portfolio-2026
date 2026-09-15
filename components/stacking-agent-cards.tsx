@@ -122,7 +122,7 @@ export function StackingAgentCards({ projects = [] }: { projects?: any[] }) {
                     {(project.startDate || project.endDate) && (
                       <p className="text-xs text-ink/40 tracking-widest uppercase mb-3">
                         {project.startDate}
-                        {project.startDate && project.endDate ? " — " : ""}
+                        {project.startDate && project.endDate ? " - " : ""}
                         {project.endDate ?? "Present"}
                       </p>
                     )}

@@ -5,6 +5,7 @@ import { PixelIcon } from "@/components/pixel-icon";
 import { RevealText } from "@/components/reveal-text";
 import { Tag } from "@/components/tag";
 import { StackingAgentCards } from "@/components/stacking-agent-cards";
+import { sortProjectsByEndDate } from "@/lib/project-sort";
 
 interface ProjectsSectionProps {
   portfolio: any;
@@ -109,9 +110,10 @@ export function ProjectsSection({ portfolio }: ProjectsSectionProps) {
     return "frontend"; // general default
   };
 
-  // Filter projects dynamically
-  const filteredProjects = (portfolio?.projects || []).filter(
-    (project: any) => {
+  // Filter projects dynamically, then sort by endDate (most recent first).
+  // Dates are display strings ("Jul 2024") so they are parsed to YYYYMM keys.
+  const filteredProjects = sortProjectsByEndDate(
+    (portfolio?.projects || []).filter((project: any) => {
       if (activeProjectTab === "all") return true;
 
       const categories = (project.categories || []).map((cat: string) =>
@@ -122,7 +124,7 @@ export function ProjectsSection({ portfolio }: ProjectsSectionProps) {
       return (
         getProjectFallbackCategory(project) === activeProjectTab.toLowerCase()
       );
-    },
+    }),
   );
 
   return (
