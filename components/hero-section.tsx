@@ -49,6 +49,17 @@ export function HeroSection({ portfolio, heroReady }: HeroSectionProps) {
         }}
       >
         <AnimatedSphere />
+        <img
+          src="/images/my-photo.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover rounded-2xl shadow-2xl border border-ink/10 dark:border-white/10 pointer-events-auto"
+          style={{
+            opacity: heroReady ? 1 : 0,
+            transform: heroReady ? "scale(1)" : "scale(0.95)",
+            transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1) 200ms, transform 0.6s cubic-bezier(0.16,1,0.3,1) 200ms",
+          }}
+        />
       </div>
 
       {/* Spacer for fixed top navbar */}
