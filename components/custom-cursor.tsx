@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isVisible, setIsVisible] = useState(false);
-  const [cursorScale, setCursorScale] = useState(2.0);
+  const [cursorScale, setCursorScale] = useState(4.0);
   const [isHovering, setIsHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -47,7 +47,7 @@ export function CustomCursor() {
       const scaleEl = target.closest("[data-cursor-scale]") as HTMLElement;
       if (scaleEl) {
         const val = parseFloat(
-          scaleEl.getAttribute("data-cursor-scale") || "1.5",
+          scaleEl.getAttribute("data-cursor-scale") || "3.0",
         );
         setCursorScale(val);
         setIsHovering(true);
@@ -68,10 +68,10 @@ export function CustomCursor() {
 
       if (isInteractive) {
         setIsHovering(true);
-        setCursorScale(2.35); // slightly larger when hovering
+        setCursorScale(4.7); // slightly larger when hovering (2x of 2.35)
       } else {
         setIsHovering(false);
-        setCursorScale(2.0); // increased base scale to 2.0
+        setCursorScale(4.0); // increased base scale to 4.0
       }
     };
 
