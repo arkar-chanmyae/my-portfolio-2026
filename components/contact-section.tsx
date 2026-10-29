@@ -38,8 +38,8 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
             "linear-gradient(to top, var(--background) 0%, color-mix(in srgb, var(--background) 92%, transparent) 18%, color-mix(in srgb, var(--background) 55%, transparent) 35%, transparent 55%)",
         }}
       />
-      <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-        <div className="flex-1 text-center md:text-left max-w-2xl">
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center md:items-start gap-12">
+        <div className="w-full max-w-2xl text-center md:text-left">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.05] mb-6">
             Let's work together.
           </h2>
@@ -66,13 +66,6 @@ export function ContactSection({ portfolio }: ContactSectionProps) {
               Based in {portfolio.contact.location}
             </p>
           )}
-        </div>
-        <div className="flex-shrink-0 order-first md:order-last">
-          <img
-            src="/images/my-photo.jpg"
-            alt="My photo"
-            className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-2xl shadow-lg border border-ink/10 dark:border-white/10"
-          />
         </div>
       </div>
     </section>
