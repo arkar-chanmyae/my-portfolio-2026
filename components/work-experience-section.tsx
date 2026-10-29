@@ -621,7 +621,7 @@ export function WorkExperienceSection({
                   key={item.id || item._id || index}
                   className={`exp-option-item ${isActive ? "active" : ""}`}
                   style={getBackgroundStyle(item, index)}
-                  data-cursor-scale={isActive ? "1.5" : undefined}
+                  data-cursor-scale={isActive ? "3.0" : undefined}
                   onClick={() => handleCardClick(item, index)}
                   onMouseEnter={() => handleCardHover(index)}
                 >
